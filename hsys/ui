@@ -1,0 +1,103 @@
+#!/bin/bash
+../config
+
+verb=n
+go=n
+
+ui_manager=ui_manager
+
+for arg in $*
+do
+    if [[ $arg =~ ^[A-Za-z0-9_]*=[A-Za-z0-9_]*$ ]]; then
+	param=(${arg//=/ })
+	case ${param[0]} in
+	    "ui_manager") ui_manager=${param[1]};;      # name of ui filter
+	    "ch_state") ch_state=${param[1]};;    # state of my own ship
+	    "ch_engstate") ch_engstate=${param[1]};;
+	    "ch_ctrl_stat") ch_ctrl_stat=${param[1]};; # state of controler
+	    "ch_ctrl_inst") ch_ctrl_inst=${param[1]};; # instruction to controler
+	    "ch_ap_inst") ch_ap_inst=${param[1]};;# instruction to autopilot
+	    "ch_wp") ch_wp=${param[1]};;          # way point
+	    "ch_ais_obj") ch_ais_obj=${param[1]};;# ais object	    
+	    "ch_map") ch_map=${param[1]};;        # map
+	    "ch_obst") ch_obst=${param[1]};;      # obstacle 
+	    "ch_disp") ch_disp=${param[1]};;	  # disparity image
+	    "ch_radar_image") ch_radar_image=${param[1]};;
+	    "ch_radar_ctrl") ch_radar_ctrl=${param[1]};;
+	    "ch_radar_state") ch_radar_state=${param[1]};;	    
+	    "verb") verb=${param[1]};;
+	    "go") go=${param[1]};;
+	esac
+    fi    
+done
+
+. ./config_ui
+
+$FILTER ui_manager $ui_manager
+$FSET $ui_manager width $width height $height
+$FSET $ui_manager fvs $path_vshader
+$FSET $ui_manager ffs $path_fshader
+$FSET $ui_manager ffnttex $path_fnttex
+$FSET $ui_manager ffnttexinf $path_fnttexinf
+$FSET $ui_manager verb $verb
+$FSET $ui_manager js $joystick
+$FSET $ui_manager storage $path_data
+
+$FSET $ui_manager flas $flas hfas $hfas slas $slas dsas $dsas dsah $dsah slah $slah hfah $hfah flah $flah nf $nf stp $stp
+$FSET $ui_manager mds $mds s10 $s10 s20 $s20 has $has p10 $p10 p20 $p20 hap $hap
+
+if [ -n "$ch_state" ]; then
+    $FSET $ui_manager ch_state $ch_state
+fi
+
+if [ -n "$ch_engstate" ]; then
+    $FSET $ui_manager ch_engstate $ch_engstate
+fi
+
+if [ -n "$ch_wp" ]; then
+    $FSET $ui_manager ch_wp $ch_wp
+fi
+
+if [ -n "$ch_ctrl_stat" ]; then
+    $FSET $ui_manager ch_ctrl_stat $ch_ctrl_stat
+fi
+
+if [ -n "$ch_ctrl_inst" ]; then
+    $FSET $ui_manager ch_ctrl_inst $ch_ctrl_inst
+fi
+
+if [ -n "$ch_ap_inst" ]; then    
+    $FSET $ui_manager ch_ap_inst $ch_ap_inst
+fi
+
+if [ -n "$ch_map" ]; then
+    $FSET $ui_manager ch_map $ch_map
+fi
+
+if [ -n "$ch_ais_obj" ]; then
+    $FSET $ui_manager ch_ais_obj $ch_ais_obj
+fi
+
+if [ -n "$ch_obst" ]; then
+    $FSET $ui_manager ch_obst $ch_obst
+fi
+
+if [ -n "$ch_disp" ]; then
+    $FSET $ui_manager ch_disp $ch_disp
+fi
+
+if [ -n "$ch_radar_image" ]; then
+    $FSET $ui_manager ch_radar_image $ch_radar_image
+fi
+
+
+if [ -n "$ch_radar_state" ]; then
+    $FSET $ui_manager ch_radar_state $ch_radar_state
+fi
+
+
+if [ -n "$ch_radar_ctrl" ]; then
+    $FSET $ui_manager ch_radar_ctrl $ch_radar_ctrl
+fi
+
+$RUN $ui_manager

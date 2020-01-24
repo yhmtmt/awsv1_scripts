@@ -1,0 +1,8 @@
+#!/bin/bash
+
+./start_lsys0
+sleep 1
+cd lsys
+./start
+sleep 3 
+cd ..

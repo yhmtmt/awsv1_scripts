@@ -1,0 +1,26 @@
+#!/bin/sh
+
+ch_state=state
+ch_state_sim=state_sim
+ch_env=env
+ch_ctrl_stat=aws1_ctrl_stat
+ch_ctrl_stat_sim=aws1_ctrl_stat_sim
+ch_ctrl_ui=aws1_ctrl_ui
+ch_ctrl_ap1=aws1_ctrl_ap1
+ch_ais_obj=ais_obj
+
+ch_engstate=engstate
+ch_engstate_sim=engstate_sim
+ch_wp=wp
+ch_ap_inst=ap_inst
+ch_img=img
+ch_map=map
+
+radar_image=radar_image
+radar_state=radar_state
+radar_ctrl=radar_ctrl
+
+#channel sharing
+
+schh2l="$ch_ctrl_ui $ch_ctrl_ap1"
+schl2h="$ch_state $ch_ctrl_stat $ch_ais_obj"

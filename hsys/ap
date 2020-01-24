@@ -1,0 +1,50 @@
+#!/bin/bash
+
+ch_state=state
+ch_wp=wp
+ch_ctrl_stat=aws1_ctrl_stat
+ch_ctrl_inst=aws1_ctrl_ap1
+ch_ap_inst=ap_inst
+autopilot=autopilot
+verb=n
+go=n
+
+for arg in $*
+do
+    if [[ $arg =~ ^[A-Za-z0-9_]*=[A-Za-z0-9_]*$ ]]; then
+	param=(${arg//=/ })
+	case ${param[0]} in
+	    "autopilot") autopilot=${param[1]};;
+	    "ch_state") ch_state=${param[1]};;
+	    "ch_engstate")ch_engstate=${param[1]};;			  
+	    "ch_wp") ch_wp=${param[1]};;
+	    "ch_ctrl_stat") ch_ctrl_stat=${param[1]};;
+	    "ch_ctrl_inst") ch_ctrl_inst=${param[1]};;
+	    "ch_ap_inst") ch_ap_inst=${param[1]};;
+	    "verb") verb=${param[1]};;
+	    "go") go=${param[1]};;
+	esac
+    fi
+done
+
+. ./config_ap
+
+$FILTER autopilot $autopilot
+$FSET $autopilot ch_state $ch_state
+$FSET $autopilot ch_wp $ch_wp
+$FSET $autopilot ch_engstate $ch_engstate
+$FSET $autopilot ch_ctrl_stat $ch_ctrl_stat
+$FSET $autopilot ch_ctrl_inst $ch_ctrl_inst
+$FSET $autopilot ch_ap_inst $ch_ap_inst
+$FSET $autopilot Interval 30
+$FSET $autopilot smax 15 smin 10
+$FSET $autopilot meng_max $meng_max meng_min $meng_min
+$FSET $autopilot pc $pc ic $ic dc $dc ps $ps is $is ds $ds
+$FSET $autopilot prev $prev irev $irev drev $drev
+$FSET $autopilot devyaw $devyaw devcog $devcog devrev $devrev
+$FSET $autopilot alpha_flw $alpha_flw alpha_yaw_bias $alpha_yaw_bias
+$FSET $autopilot alpha_rud_mid $alpha_rud_mid alpha_tbl_stable_rpm $alpha_tbl_stable_rpm
+$FSET $autopilot fctrl_state $fctrl_state
+$FSET $autopilot verb $verb
+
+$RUN $autopilot

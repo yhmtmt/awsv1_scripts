@@ -1,0 +1,5 @@
+#!/bin/bash
+
+caws clock stop
+caws quit
+

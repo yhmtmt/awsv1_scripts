@@ -1,0 +1,10 @@
+#!/usr/bin/expect
+
+spawn ssh root@192.168.128.2
+expect "password:"
+send "root\n"
+expect "root@localhost"
+send "nohup aws > /dev/null &\n"
+expect "root@localhost"
+send "exit\n"
+interact

@@ -1,0 +1,114 @@
+#!/bin/bash
+
+verb=n
+go=n
+
+sim_aws1=sim_aws1
+stime=`caws gettime`
+
+for arg in $*
+do
+    if [[ $arg =~ ^[A-Za-z0-9_]*=[A-Za-z0-9_]*$ ]]; then
+	param=(${arg//=/ })
+	case ${param[0]} in
+	    "sim_aws1") sim_aws1=${param[1]};;   
+	    "ch_state") ch_state=${param[1]};;   
+	    "ch_engstate") ch_engstate=${param[1]};;
+	    "ch_ctrl_stat") ch_ctrl_stat=${param[1]};; 
+	    "ch_ctrl_ui") ch_ctrl_ui=${param[1]};; 
+	    "ch_ctrl_ap1") ch_ctrl_ap1=${param[1]};;
+	    "ch_ctrl_ap2") ch_ctrl_ap2=${param[1]};;
+	    "ch_state_sim") ch_state_sim=${param[1]};;
+	    "ch_engstate_sim") ch_engstate_sim=${param[1]};;
+	    "ch_ctrl_stat_sim") ch_ctrl_stat_sim=${param[1]};;
+	    "verb") verb=${param[1]};;
+	    "go") go=${param[1]};;
+	esac
+    fi    
+done
+
+. ./config_sim
+. ../lsys/config_ctrl
+
+path_csv=$path_data/sim_$stime.csv
+
+$FILTER sim_aws1 $sim_aws1
+
+if [ -n "$path_csv" ]; then
+    $FSET $sim_aws1 fcsv $path_csv
+fi
+
+if [ -n "$ch_state" ]; then
+    $FSET $sim_aws1 ch_state $ch_state
+fi
+
+if [ -n "$ch_engstate" ]; then
+    $FSET $sim_aws1 ch_engstate $ch_engstate
+fi
+
+if [ -n "$ch_ctrl_stat" ]; then
+    $FSET $sim_aws1 ch_ctrl_stat $ch_ctrl_stat
+fi
+
+if [ -n "$ch_ctrl_ui" ]; then
+    $FSET $sim_aws1 ch_ctrl_ui $ch_ctrl_ui
+fi
+
+if [ -n "$ch_ctrl_ap1" ]; then
+    $FSET $sim_aws1 ch_ctrl_ap1 $ch_ctrl_ap1
+fi
+
+if [ -n "$ch_ctrl_ap2" ]; then
+    $FSET $sim_aws1 ch_ctrl_ap2 $ch_ctrl_ap2
+fi
+
+if [ -n "$ch_state_sim" ]; then    
+    $FSET $sim_aws1 ch_state_sim $ch_state_sim
+fi
+
+if [ -n "$ch_engstate_sim" ]; then
+    $FSET $sim_aws1 ch_engstate_sim $ch_engstate_sim
+fi
+
+if [ -n "$ch_ctrl_stat_sim" ]; then
+    $FSET $sim_aws1 ch_ctrl_stat_sim $ch_ctrl_stat_sim
+fi
+
+$FSET $sim_aws1 meng_max_rmc $meng_max_rmc meng_nuf_rmc $meng_nuf_rmc meng_nut_rmc $meng_nut_rmc meng_nub_rmc $meng_nub_rmc meng_min_rmc $meng_min_rmc
+$FSET $sim_aws1 seng_max_rmc $seng_max_rmc seng_nuf_rmc $seng_nuf_rmc seng_nut_rmc $seng_nut_rmc seng_nub_rmc $seng_nub_rmc seng_min_rmc $seng_min_rmc
+$FSET $sim_aws1 rud_max_rmc $rud_max_rmc rud_nut_rmc $rud_nut_rmc rud_min_rmc $rud_min_rmc
+$FSET $sim_aws1 rud_sta_max $rud_sta_max rud_sta_nut $rud_sta_nut rud_sta_min $rud_sta_min
+$FSET $sim_aws1 meng_max $meng_max meng_nuf $meng_nuf meng_nut $meng_nut meng_nub $meng_nub meng_min $meng_min
+$FSET $sim_aws1 seng_max $seng_max seng_nuf $seng_nuf seng_nut $seng_nut seng_nub $seng_nub seng_min $seng_min
+$FSET $sim_aws1 rud_max $rud_max rud_nut $rud_nut rud_min $rud_min
+$FSET $sim_aws1 rud_sta_out_max $rud_sta_out_max rud_sta_out_nut $rud_sta_out_nut rud_sta_out_min $rud_sta_out_min
+$FSET $sim_aws1 awsrud $awsrud awsmeng $awsmeng awsseng $awsseng
+
+# setting initial state
+lat0_rad=`echo "scale=12; $lat0 * 3.14159265359 / 180.0" | bc`
+lon0_rad=`echo "scale=12; $lon0 * 3.14159265359 / 180.0" | bc`
+
+$FSET $sim_aws1 lat0  $lat0_rad lon0 $lon0_rad roll0 $roll0 pitch0 $pitch0 yaw0 $yaw0
+$FSET $sim_aws1 cog0 $cog0 sog0 $sog0 meng0 $meng0 rud0 $rud0
+$FSET $sim_aws1 rev0 $rev0 fuel0 $fuel0
+
+# setting model parameters
+$FSET $sim_aws1 xg0 $xg0 yg0 $yg0
+$FSET $sim_aws1 m0 $m0 ma_xu0 $ma_xu0 ma_yv0 $ma_yv0 ma_yr0 $ma_yr0 ma_nr0 $ma_nr0
+$FSET $sim_aws1 dl_xu0 $dl_xu0 dl_yv0 $dl_yv0 dl_yr0 $dl_yr0 dl_nv0 $dl_nv0 dl_nr0 $dl_nr0
+$FSET $sim_aws1 dq_xu0 $dq_xu0 dq_yv0 $dq_yv0 dq_yr0 $dq_yr0 dq_nv0 $dq_nv0 dq_nr0 $dq_nr0
+$FSET $sim_aws1 xg1 $xg1 yg1 $yg1
+$FSET $sim_aws1 m1 $m1 ma_xu1 $ma_xu1 ma_yv1 $ma_yv1 ma_yr1 $ma_yr1 ma_nr1 $ma_nr1
+$FSET $sim_aws1 dl_xu1 $dl_xu1 dl_yv1 $dl_yv1 dl_yr1 $dl_yr1 dl_nv1 $dl_nv1 dl_nr1 $dl_nr1
+$FSET $sim_aws1 dq_xu1 $dq_xu1 dq_yv1 $dq_yv1 dq_yr1 $dq_yr1 dq_nv1 $dq_nv1 dq_nr1 $dq_nr1
+
+$FSET $sim_aws1 xr0 $xr0 yr0 $yr0 CTL0 $CTL0 CTQ0 $CTQ0 CD0 $CD0 CL0 $CL0
+$FSET $sim_aws1 xr1 $xr1 yr1 $yr1 CTL1 $CTL1 CTQ1 $CTQ1 CD1 $CD1 CL1 $CL1
+
+$FSET $sim_aws1 rslack $rslack rrud $rrud ruds $ruds rudp $rudp
+
+$FSET $sim_aws1 fth $fth bth $bth umax $umax umin $umin rgamma $rgamma rfdelta $rfdelta rbdelta $rbdelta
+$FSET $sim_aws1 r0f $r0f rpf $rpf rff $rff e0f $e0f e0df $e0df epf $epf epdf $epdf eff $eff qddf $qddf qudf $qudf qdpf $qdpf qupf $qupf
+$FSET $sim_aws1 r0b $r0b rfb $rfb e0b $e0b e0db $e0db efb $efb qdb $qdb qub $qub
+
+$RUN $sim_aws1

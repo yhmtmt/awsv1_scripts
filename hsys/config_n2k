@@ -1,0 +1,5 @@
+#!/bin/sh
+. ../config
+
+dev=/dev/ttyUSB0
+br=115200

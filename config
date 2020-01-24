@@ -1,0 +1,20 @@
+#!/bin/bash
+
+RUN="caws run "
+LS="ls -lag "
+FILTER_IN="caws setfltrinchs "
+FILTER_OUT="caws setfltroutchs "
+FILTER="caws genfltr "
+CHANNEL="caws gench "
+FSET="caws setfltrpar "
+
+env=`uname`
+cpu=`uname -p`
+
+if [ $cpu = "x86_64" ]; then
+    export path_aws=../
+    export path_data=/mnt/d/aws
+else
+    export path_aws=/mnt/awsv1
+    export path_data=/mnt/awsv1
+fi

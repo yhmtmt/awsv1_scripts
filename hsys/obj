@@ -1,0 +1,34 @@
+#!/bin/bash
+
+verb=n
+go=n
+
+object_manager=object_manager
+
+for arg in $*
+do
+    if [[ $arg =~ ^[A-Za-z0-9_]*=[A-Za-z0-9_]*$ ]]; then
+	param=(${arg//=/ })
+	case ${param[0]} in
+	    "object_manager") object_manager=${param[1]};;
+	    "ch_state") ch_state=${param[1]};;
+	    "ch_ais_obj") ch_ais_obj=${param[1]};;
+	    "verb") verb=${param[1]};;
+	    "go") go=${param[1]};;
+	esac
+    fi    
+done
+
+. ./config_obj
+
+$FILTER object_manager $object_manager
+$FSET $object_manager range $range
+$FSET $object_manager dtold $dtold
+$FSET $object_manager ch_state $ch_state
+#$FSET $object_manager verb $verb
+
+if [ -n "$ch_ais_obj" ]; then
+   $FSET $object_manager ch_ais_obj $ch_ais_obj
+fi
+
+$RUN $object_manager

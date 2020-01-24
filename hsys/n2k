@@ -1,0 +1,40 @@
+#!/bin/bash
+
+go=n
+verb=n
+ShowTxt=n
+ShowJson=n
+n2k_ngt1=n2k_ngt1
+
+for arg in $*
+do
+    if [[ $arg =~ ^[A-Za-z0-9_]*=[A-Za-z0-9_]*$ ]]; then
+	param=(${arg//=/ })
+	case ${param[0]} in
+	    "ch_engstate") ch_engstate=${param[1]};;
+	    "n2k_ngt1")n2k_ngt1=${param[1]};;
+	    "verb") verb=${param[1]};;
+	    "go") go=${param[1]};;
+	    "ShowTxt") ShowTxt=${param[1]};;
+	    "ShowJson") ShowJson=${param[1]};;
+	esac
+    fi
+    
+    case $arg in
+    esac
+done
+
+if [ -z "$ch_engstate" ]; then
+    ch_engstate=engstate
+    channel engstate $ch_engstate
+fi
+
+. ./config_n2k
+
+$FILTER n2k_ngt1 $n2k_ngt1
+$FSET $n2k_ngt1 ch_eng_state $ch_engstate
+$FSET $n2k_ngt1 dev $dev br $br
+$FSET $n2k_ngt1 verb $verb
+$FSET $n2k_ngt1 ShowTxt $ShowTxt ShowJson $ShowJson
+
+$RUN $n2k_ngt1
