@@ -1,5 +1,5 @@
 #!/bin/bash
-
+. ../config
 verb=n
 go=n
 
@@ -29,7 +29,7 @@ do
 done
 
 if [ -z $sw ]; then
-    echo "sw_nmea.aws sw=<name> ch_nmea_in=<nmea input> ch_nmea_out=<nmea output> gff=<y or n> ais=<y or n> ap=<y or n> gps=<y or n> go=<y or n> verb=<y or n>"
+    echo "nmea_manager sw=<name> ch_nmea_in=<nmea input> ch_nmea_out=<nmea output> gff=<y or n> ais=<y or n> ap=<y or n> gps=<y or n> go=<y or n> verb=<y or n>"
     exit
 fi
 
@@ -44,7 +44,7 @@ if [ -z $ch_nmea_out ]; then
     $CHANNEL nmea $ch_nmea_out
 fi
 
-$FILTER aws1_nmea_sw $sw
+$FILTER nmea0183_manager $sw
 $FSET $sw aws_nmea_i ${sw}_nmea_out
 $FSET $sw aws_nmea_o ${sw}_nmea_in
 $FSET $sw aws_ctrl no

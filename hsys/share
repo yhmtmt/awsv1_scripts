@@ -40,7 +40,9 @@ done
 . ../config_share
 
 $FILTER data_sharing_manager $data_sharing_manager
+echo $ich
 $FILTER_IN $data_sharing_manager $ich
+echo $och
 $FILTER_OUT $data_sharing_manager $och
 if [ $svr = "y" ]; then
     $FSET $data_sharing_manager port $port_svr
@@ -49,6 +51,6 @@ else
     $FSET $data_sharing_manager host_dst $ip_svr port_dst $port_svr
 fi
 
-$FSET $data_sharing_manager verb $verb 
+#$FSET $data_sharing_manager verb $verb 
 
 $RUN $data_sharing_manager

@@ -24,12 +24,13 @@ do
     esac
 done
 
+. ../config
+. ./config_n2k
+
 if [ -z "$ch_engstate" ]; then
     ch_engstate=engstate
-    channel engstate $ch_engstate
+    $CHANNEL engstate $ch_engstate
 fi
-
-. ./config_n2k
 
 $FILTER n2k_ngt1 $n2k_ngt1
 $FSET $n2k_ngt1 ch_eng_state $ch_engstate

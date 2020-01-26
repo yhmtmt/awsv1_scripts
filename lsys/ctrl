@@ -21,12 +21,13 @@ do
 done
 
 if [ -z "$ctrl" ]; then
-    echo "ctrl.aws ctrl=<name> ch_ctrl_ui=<control from ui> ch_ctrl_ap1=<control from ap1> ch_ctrl_ap2=<control from ap2> ch_ctrl_stat=<control status> verb=<y or n> go=<y or n>"
+    echo "ctrl ctrl=<name> ch_ctrl_ui=<control from ui> ch_ctrl_ap1=<control from ap1> ch_ctrl_ap2=<control from ap2> ch_ctrl_stat=<control status> verb=<y or n> go=<y or n>"
 fi
 
+. ../config
 . ./config_ctrl
 
-$FILTER aws1_ctrl $ctrl -i -o
+$FILTER control_aws1 $ctrl
 if [ -n "$ch_ctrl_ui" ]; then
     $FSET $ctrl ch_ctrl_ui $ch_ctrl_ui
 fi

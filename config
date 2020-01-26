@@ -15,6 +15,6 @@ if [ $cpu = "x86_64" ]; then
     export path_aws=../
     export path_data=/mnt/d/aws
 else
-    export path_aws=/mnt/awsv1
-    export path_data=/mnt/awsv1
+    export path_aws=/mnt/aws
+    export path_data=/mnt/aws
 fi

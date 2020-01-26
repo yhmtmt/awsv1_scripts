@@ -3,7 +3,7 @@
 verb=n
 go=n
 svr=n
-share=share
+data_sharing_manager=data_sharing_manager
 
 mode=normal
 
@@ -13,7 +13,7 @@ do
     if [[ $arg =~ ^[A-Za-z0-9_]*=[A-Za-z0-9_]*$ ]]; then
 	param=(${arg//=/ })
 	case ${param[0]} in
-	    "share")share=${param[1]};;
+	    "data_sharing_manager")data_sharing_manager=${param[1]};;
 	    "svr")svr=${param[1]};;
 	    "in")in=${param[1]};;
 	    "out")out=${param[2]};;
@@ -39,16 +39,16 @@ done
 . ../config
 . ../config_share
 
-$FILTER ch_share $share
-$FILTER_IN $ich
-$FILTER_OUT $och
+$FILTER data_sharing_manager $data_sharing_manager
+$FILTER_IN $data_sharing_manager $ich
+$FILTER_OUT $data_sharing_manager $och
 if [ $svr = "y" ]; then
-    $FSET $share port $port_svr
+    $FSET $data_sharing_manager port $port_svr
 else
-    $FSET $share host_dst $ip_svr
-    $FSET $share port_dst $port_svr
+    echo "Data sharing manager $ip_svr $port_svr"
+    $FSET $data_sharing_manager host_dst $ip_svr port_dst $port_svr
 fi
 
-$FSET $share verb $verb 
+$FSET $data_sharing_manager verb $verb 
 
-$RUN $share
+$RUN $data_sharing_manager

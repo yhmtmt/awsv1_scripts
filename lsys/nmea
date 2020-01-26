@@ -27,6 +27,7 @@ if [ -z "$nmea" ]; then
     exit
 fi
 
+. ../config
 . ./config_$nmea
 
 echo "Setting up ${nmea}'s nmea filter on $dev $br"
@@ -43,7 +44,9 @@ if [ -z "$ch_nmea_out" ]; then
     $CHANNEL nmea $ch_nmea_out
 fi
 
-$FILTER nmea $nmea -i $ch_nmea_in -o $ch_nmea_out
+$FILTER nmea0183_device $nmea
+$FILTER_IN $nmea $ch_nmea_in
+$FILTER_OUT $nmea $ch_nmea_out
 $FSET $nmea src COM
 $FSET $nmea fnmea $dev
 $FSET $nmea bps $br
