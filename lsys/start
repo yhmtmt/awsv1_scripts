@@ -4,7 +4,7 @@ go=n
 
 gff=y
 ais=y
-gps=y
+gps=n
 v104=y
 wx220=y
 
@@ -35,6 +35,8 @@ done
 . ../config
 . ../config_channel
 
+caws clock run
+
 $CHANNEL state $ch_state
 $CHANNEL aws1_ctrl_stat $ch_ctrl_stat
 $CHANNEL aws1_ctrl_inst $ch_ctrl_ui
@@ -44,7 +46,7 @@ $CHANNEL ais_obj $ch_ais_obj
 
 ./ctrl ctrl=ctrl ch_ctrl_ui=$ch_ctrl_ui ch_ctrl_ap1=$ch_ctrl_ap1 ch_ctrl_stat=$ch_ctrl_stat verb=$dbg_ctrl
 
-./nmea_manager sw=sw ch_nmea_in=$ch_nmea_in ch_nmea_out=$ch_nmea_out ch_state=$ch_state gff=$gff ais=$ais v104=$v104 wx220=$wx220 ch_ais_obj=$ch_ais_obj gps=$gps verb=$dbg_sw
+./nmea_manager sw=sw ch_nmea_in=$ch_nmea_in ch_nmea_out=$ch_nmea_out ch_state=$ch_state gff=$gff ais=$ais v104=$v104 wx220=$wx220 ch_ais_obj=$ch_ais_obj verb=$dbg_sw
 
 ./share share=share -i $schl2h -o $schh2l verb=$dbg_share svr=y
 

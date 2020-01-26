@@ -1,6 +1,6 @@
 #!/bin/sh
 
-dev=/dev/zgpio0
+dev=/dev/zgpio1
 
 meng_max_rmc=21
 meng_nuf_rmc=91
