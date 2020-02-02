@@ -2,6 +2,9 @@
 
 
 cd hsys
+if [ ! -d logs ]; then
+    mkdir logs
+fi
 nohup aws > /dev/null &
 sleep 3 
 ./start
