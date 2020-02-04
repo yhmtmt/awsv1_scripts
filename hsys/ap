@@ -38,7 +38,7 @@ $FSET $autopilot ch_ctrl_inst $ch_ctrl_inst
 $FSET $autopilot ch_ap_inst $ch_ap_inst
 $FSET $autopilot Interval 30
 $FSET $autopilot smax 15 smin 10
-$FSET $autopilot meng_max $meng_max meng_min $meng_min
+$FSET $autopilot eng_max $eng_max eng_min $eng_min
 $FSET $autopilot pc $pc ic $ic dc $dc ps $ps is $is ds $ds
 $FSET $autopilot prev $prev irev $irev drev $drev
 $FSET $autopilot devyaw $devyaw devcog $devcog devrev $devrev

@@ -2,16 +2,16 @@
 
 dev=/dev/zgpio1
 
-meng_max=228
-meng_nuf=151
-meng_nut=129
-meng_nub=104
-meng_min=78
+eng_max=228
+eng_nuf=151
+eng_nut=129
+eng_nub=104
+eng_min=78
 
 rud_max=5
 rud_nut=127
 rud_min=250
 
 awsrud=127
-awsmeng=127
+awseng=127
 

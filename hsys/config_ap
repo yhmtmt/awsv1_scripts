@@ -2,8 +2,8 @@
 
 . ../config
 
-meng_max=220
-meng_min=80
+eng_max=220
+eng_min=80
 rev_max=5500
 rev_min=700
 pc=1.0
