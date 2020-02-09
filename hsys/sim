@@ -105,6 +105,7 @@ $FSET $sim_aws1 dq_xu2 $dq_xu2 dq_yv2 $dq_yv2 dq_yr2 $dq_yr2 dq_nv2 $dq_nv2 dq_n
 
 $FSET $sim_aws1 xr0 $xr0 yr0 $yr0 CTL0 $CTL0 CTQ0 $CTQ0 CD0 $CD0 CL0 $CL0
 $FSET $sim_aws1 xr1 $xr1 yr1 $yr1 CTL1 $CTL1 CTQ1 $CTQ1 CD1 $CD1 CL1 $CL1
+$FSET $sim_aws1 xr2 $xr2 yr2 $yr2 CTL2 $CTL2 CTQ2 $CTQ2 CD2 $CD2 CL2 $CL2
 
 $FSET $sim_aws1 rslack $rslack rrud $rrud ruds $ruds rudp $rudp
 
