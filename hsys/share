@@ -40,14 +40,11 @@ done
 . ../config_share
 
 $FILTER data_sharing_manager $data_sharing_manager
-echo $ich
 $FILTER_IN $data_sharing_manager $ich
-echo $och
 $FILTER_OUT $data_sharing_manager $och
 if [ $svr = "y" ]; then
     $FSET $data_sharing_manager port $port_svr
 else
-    echo "Data sharing manager $ip_svr $port_svr"
     $FSET $data_sharing_manager host_dst $ip_svr port_dst $port_svr
 fi
 
