@@ -6,7 +6,7 @@ ch_env=env
 ch_ctrl_stat=aws1_ctrl_stat
 ch_ctrl_stat_sim=aws1_ctrl_stat_sim
 ch_ctrl_ui=aws1_ctrl_ui
-ch_ctrl_ap1=aws1_ctrl_ap1
+ch_ctrl_ap=aws1_ctrl_ap
 ch_ais_obj=ais_obj
 
 ch_engstate=engstate

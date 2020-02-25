@@ -3,7 +3,7 @@
 ch_state=state
 ch_wp=wp
 ch_ctrl_stat=aws1_ctrl_stat
-ch_ctrl_inst=aws1_ctrl_ap1
+ch_ctrl_inst=aws1_ctrl_ap
 ch_ap_inst=ap_inst
 autopilot=autopilot
 verb=n

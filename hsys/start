@@ -13,7 +13,7 @@ sim=n
 . ../config
 . ../config_channel
 
-logchan="state $ch_ctrl_ui $ch_ctrl_ap1 $ch_ctrl_stat $ch_ais_obj $ch_engstate"
+logchan="state $ch_ctrl_ui $ch_ctrl_ap $ch_ctrl_stat $ch_ais_obj $ch_engstate"
 
 for arg in $*
 do
@@ -32,7 +32,7 @@ $CHANNEL wp $ch_wp
 $CHANNEL ais_obj $ch_ais_obj
 $CHANNEL aws1_ctrl_stat $ch_ctrl_stat
 $CHANNEL aws1_ctrl_inst $ch_ctrl_ui
-$CHANNEL aws1_ctrl_inst $ch_ctrl_ap1
+$CHANNEL aws1_ctrl_inst $ch_ctrl_ap
 $CHANNEL aws1_ap_inst $ch_ap_inst
 $CHANNEL map $ch_map
 
@@ -44,7 +44,7 @@ caws clock run
 
 if [ $sim = "y" ]; then
     echo "Setting up SIM"
-    ./sim ch_state=$ch_state ch_engstate=$ch_engstate ch_ctrl_stat=$ch_ctrl_stat ch_ctrl_ui=$ch_ctrl_ui ch_ctrl_ap1=$ch_ctrl_ap1 ch_state_sim=$ch_state ch_engstate_sim=$ch_engstate ch_ctrl_stat_sim=$ch_ctrl_stat stime=$stime
+    ./sim ch_state=$ch_state ch_engstate=$ch_engstate ch_ctrl_stat=$ch_ctrl_stat ch_ctrl_ui=$ch_ctrl_ui ch_ctrl_ap=$ch_ctrl_ap ch_state_sim=$ch_state ch_engstate_sim=$ch_engstate ch_ctrl_stat_sim=$ch_ctrl_stat stime=$stime
 fi
 
 # object manager
@@ -63,7 +63,7 @@ echo "Setting up MAP"
 
 # autopilot
 echo "Setting up AP"
-./ap ch_state=$ch_state ch_engstate=$ch_engstate ch_wp=$ch_wp ch_ctrl_stat=$ch_ctrl_stat ch_ctrl_inst=$ch_ctrl_ap1 ch_ap_inst=$ch_ap_inst verb=$dbg_ap
+./ap ch_state=$ch_state ch_engstate=$ch_engstate ch_wp=$ch_wp ch_ctrl_stat=$ch_ctrl_stat ch_ctrl_inst=$ch_ctrl_ap ch_ap_inst=$ch_ap_inst verb=$dbg_ap
     
 $CHANNEL state $ch_state_sim
 $CHANNEL engstate $ch_engstate_sim

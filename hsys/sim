@@ -16,8 +16,7 @@ do
 	    "ch_engstate") ch_engstate=${param[1]};;
 	    "ch_ctrl_stat") ch_ctrl_stat=${param[1]};; 
 	    "ch_ctrl_ui") ch_ctrl_ui=${param[1]};; 
-	    "ch_ctrl_ap1") ch_ctrl_ap1=${param[1]};;
-	    "ch_ctrl_ap2") ch_ctrl_ap2=${param[1]};;
+	    "ch_ctrl_ap") ch_ctrl_ap=${param[1]};;
 	    "ch_state_sim") ch_state_sim=${param[1]};;
 	    "ch_engstate_sim") ch_engstate_sim=${param[1]};;
 	    "ch_ctrl_stat_sim") ch_ctrl_stat_sim=${param[1]};;
@@ -54,12 +53,8 @@ if [ -n "$ch_ctrl_ui" ]; then
     $FSET $sim_aws1 ch_ctrl_ui $ch_ctrl_ui
 fi
 
-if [ -n "$ch_ctrl_ap1" ]; then
-    $FSET $sim_aws1 ch_ctrl_ap1 $ch_ctrl_ap1
-fi
-
-if [ -n "$ch_ctrl_ap2" ]; then
-    $FSET $sim_aws1 ch_ctrl_ap2 $ch_ctrl_ap2
+if [ -n "$ch_ctrl_ap" ]; then
+    $FSET $sim_aws1 ch_ctrl_ap $ch_ctrl_ap
 fi
 
 if [ -n "$ch_state_sim" ]; then    
