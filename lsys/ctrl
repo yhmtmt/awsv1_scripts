@@ -10,9 +10,8 @@ do
 	param=(${arg//=/ })
 	case ${param[0]} in
 	    "ctrl") ctrl=${param[1]};;      # name of ctrl $FILTER
-	    "ch_ctrl_ui") ch_ctrl_ui=${param[1]};;    # state of my own ship
-	    "ch_ctrl_ap1") ch_ctrl_ap1=${param[1]};; # state of controler
-	    "ch_ctrl_ap2") ch_ctrl_ap2=${param[1]};; # instruction to controler
+	    "ch_ctrl_ui") ch_ctrl_ui=${param[1]};;  # state of my own ship
+	    "ch_ctrl_ap") ch_ctrl_ap=${param[1]};; # state of controler
 	    "ch_ctrl_stat") ch_ctrl_stat=${param[1]};;# instruction to autopilot
 	    "verb") verb=${param[1]};;
 	    "go") go=${param[1]};;
@@ -21,7 +20,7 @@ do
 done
 
 if [ -z "$ctrl" ]; then
-    echo "ctrl ctrl=<name> ch_ctrl_ui=<control from ui> ch_ctrl_ap1=<control from ap1> ch_ctrl_ap2=<control from ap2> ch_ctrl_stat=<control status> verb=<y or n> go=<y or n>"
+    echo "ctrl ctrl=<name> ch_ctrl_ui=<control from ui> ch_ctrl_ap=<control from ap> ch_ctrl_stat=<control status> verb=<y or n> go=<y or n>"
 fi
 
 . ../config
@@ -32,12 +31,8 @@ if [ -n "$ch_ctrl_ui" ]; then
     $FSET $ctrl ch_ctrl_ui $ch_ctrl_ui
 fi
 
-if [ -n "$ch_ctrl_ap1" ]; then
-    $FSET $ctrl ch_ctrl_ap1 $ch_ctrl_ap1
-fi
-
-if [ -n "$ch_ctrl_ap2" ]; then
-    $FSET $ctrl ch_ctrl_ap2 $ch_ctrl_ap2
+if [ -n "$ch_ctrl_ap" ]; then
+    $FSET $ctrl ch_ctrl_ap $ch_ctrl_ap
 fi
 
 $FSET $ctrl ch_ctrl_stat $ch_ctrl_stat
