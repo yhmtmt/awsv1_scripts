@@ -45,7 +45,6 @@ $FSET $ctrl device $dev
 $FSET $ctrl verb $verb
 $FSET $ctrl sim no
 
-$FSET $ctrl rud_sta_max $rud_sta_max rud_sta_nut $rud_sta_nut rud_sta_min $rud_sta_min
 $FSET $ctrl eng_max $eng_max eng_nuf $eng_nuf eng_nut $eng_nut eng_nub $eng_nub eng_min $eng_min
 $FSET $ctrl rud_max $rud_max rud_nut $rud_nut rud_min $rud_min
 $FSET $ctrl awsrud $awsrud awseng $awseng
