@@ -42,9 +42,8 @@ $FSET $ui_manager ffnttexinf $path_fnttexinf
 $FSET $ui_manager verb $verb
 $FSET $ui_manager js $joystick
 $FSET $ui_manager storage $path_data
-
-$FSET $ui_manager flas $flas hfas $hfas slas $slas dsas $dsas dsah $dsah slah $slah hfah $hfah flah $flah nf $nf stp $stp
-$FSET $ui_manager mds $mds s10 $s10 s20 $s20 has $has p10 $p10 p20 $p20 hap $hap
+$FSET $ui_manager path_quit_script $path_quit_script
+$FSET $ui_manager quit_script $quit_script
 
 if [ -n "$ch_state" ]; then
     $FSET $ui_manager ch_state $ch_state
