@@ -1,0 +1,18 @@
+#!/bin/bash
+
+. cmd/config
+
+error_message(){
+    echo "value <engine> <rudder>"
+    echo "value {<target rev>|<target sog>} <target cog>"
+    exit 1
+}
+
+if [ $# != 2 ]; then
+    error_message
+fi
+
+fval0=$1
+fval1=$2
+
+cmd_ff "setctrlv" $1 $2

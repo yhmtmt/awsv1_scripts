@@ -1,0 +1,49 @@
+#!/bin/bash
+
+. cmd/config
+
+error_message(){
+    echo "cmd <engine command> <rudder or course command>"
+    echo "    <engine command> in {flas, hfas, slas, dsas, stp, dsah, slah, hfah, flah, nf}"
+    echo "    <rudder command> in {hap, p20, p10, mds, s10, s20, has}"
+    echo "    <course command> in {cm20, cm10, cm5, cmp0, cp5, cp10, cp20}"
+    exit 1
+}
+
+if [ $# != 2 ]; then
+   error_message
+fi
+
+case $1 in
+    "flas") ival0=0;;
+    "hfas") ival0=1;;
+    "slas") ival0=2;;
+    "dsas") ival0=3;;
+    "stp") ival0=4;;
+    "dsah") ival0=5;;
+    "slah") ival0=6;;
+    "hfah") ival0=7;;
+    "flah") ival0=8;;
+    "nf") ival0=9;;
+    * ) error_message ;;
+esac
+
+case $2 in
+    "hap") ival1=0;;
+    "p20") ival1=1;;
+    "p10") ival1=2;;
+    "mds") ival1=3;;
+    "s10") ival1=4;;
+    "s20") ival1=5;;
+    "has") ival1=6;;
+    "cm20") ival1=0;;
+    "cm10") ival1=1;;
+    "cm5") ival1=2;;
+    "cmp0") ival1=3;;
+    "cp5") ival1=4;;
+    "cp10") ival1=5;;
+    "cp20") ival1=6;;
+    * ) error_message ;;
+esac
+
+cmd_ii "setctrlc" $ival0 $ival1

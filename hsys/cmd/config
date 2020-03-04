@@ -1,0 +1,26 @@
+#!/bin/bash
+
+
+CMD="caws setfltrpar ui_manager "
+
+
+cmd(){
+	`$CMD cmd_id $1`
+}
+
+cmd_i(){
+	`$CMD cmd_id $1 ival0 $2`
+}
+
+cmd_ii(){
+	`$CMD cmd_id $1 ival0 $2 ival1 $3`
+}
+
+cmd_iiii(){
+	`$CMD cmd_id $1 ival0 $2 ival1 $3 ival2 $4 ival3 $5`
+}
+
+cmd_ff(){
+	`$CMD cmd_id $1 fval0 $2 fval1 $3`
+}
+
