@@ -20,6 +20,10 @@ cmd_iiii(){
 	`$CMD cmd_id $1 ival0 $2 ival1 $3 ival2 $4 ival3 $5`
 }
 
+cmd_iiff(){
+	`$CMD cmd_id $1 ival0 $2 ival1 $3 fval2 $4 fval3 $5`
+}
+
 cmd_ff(){
 	`$CMD cmd_id $1 fval0 $2 fval1 $3`
 }

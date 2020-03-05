@@ -1,0 +1,14 @@
+#!/bin/bash
+
+. cmd/config
+
+error_message(){
+    echo "rev"
+    exit 1
+}
+
+if [ $# != 0 ]; then
+    error_message 
+fi
+
+cmd revwps

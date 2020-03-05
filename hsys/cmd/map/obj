@@ -1,0 +1,28 @@
+#!/bin/bash
+
+. cmd/config
+
+error_message(){
+    echo "obj { wp | cl | ais | mark }  { on | off }"
+    exit 1
+}
+
+if [ $# != 3 ]; then
+    error_message()
+fi
+
+if [ $2 = "on" ]; then
+    state=1
+else
+    state=0
+fi
+
+case $1 in
+    "wp") cmd_ii setmapobj 1 $state;;
+    "cl") cmd_ii setmapobj 2 $state;;
+    "ais") cmd_ii setmapobj 3 $state;;
+    "mark") cmd_ii setmapobj 4 $state;;
+    *) error_message;;
+esac
+
+

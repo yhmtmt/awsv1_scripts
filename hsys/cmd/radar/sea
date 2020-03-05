@@ -1,0 +1,19 @@
+#!/bin/bash
+
+. cmd/config
+
+error_message(){
+    echo "sea {auto | off | <sea>}"
+    exit 1
+}
+
+if [ $# != 1 ]; then
+    error_message
+fi
+
+case $1 in
+    "auto" ) cmd_i setrdsea 1 ;;
+    "off" ) cmd_i setrdsea -1 ;; 
+    * ) cmd_ii setrdsea 0 $1 ;;
+esac
+

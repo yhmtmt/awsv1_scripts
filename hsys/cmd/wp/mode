@@ -1,0 +1,39 @@
+#!/bin/bash
+
+. cmd/config
+
+error_message(){
+    echo "mode <control mode> [<autopilot mode>]"
+    echo "    <control mode> in { ui, ap }"
+    echo "    <autopilot mode> in { wp, stay, semi}"
+    exit 1
+}
+
+if [ $# != 1 ] && [ $# != 2 ]; then
+    error_message 
+fi
+
+cmode=$1
+if [ $cmode = "ui" ]; then
+    cmd_i setctrlmode 0
+    exit 0
+fi
+
+if [ $cmode = "ap" ]; then
+    if [ $# != 2 ]; then
+	error_message
+    fi
+    
+    amode=$2
+    ival0=0
+    case $amode in
+	"wp") ival0=1;;
+	"stay") ival0=3;;
+	"semi") ival0=5;;
+	* ) error_message ;;
+    esac
+
+    cmd_ii "setctrlmode" 1 $ival0
+    exit 0
+fi
+

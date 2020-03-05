@@ -1,0 +1,20 @@
+#!/bin/bash
+
+. cmd/config
+
+error_message(){
+    echo "add <id> {abs | rel} <lat or x> <lon or y>"
+    exit 1
+}
+
+if [ $# != 4 ]; then
+    error_message 
+fi
+
+case $2 in
+    "abs") mode=1;;
+    "rel") mode=0;;
+    * ) error_message ;;
+esac
+
+cmd_iiff addwp $1 $mode $3 $4
