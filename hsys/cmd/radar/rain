@@ -13,5 +13,5 @@ fi
 
 case $1 in
 "off") cmd_i setrdrain -1 ;;
-* ) cmd_i setrdrain $1 ;;
+* ) cmd_ii setrdrain 0 $1 ;;
 esac
