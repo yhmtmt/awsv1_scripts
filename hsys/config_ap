@@ -2,8 +2,8 @@
 
 . ../config
 
-eng_max=220
-eng_min=80
+eng_max=240
+eng_min=60
 rev_max=5500
 rev_min=700
 pc=1.0
@@ -16,8 +16,8 @@ prev=0.1
 irev=0.01
 drev=0.0
 
-smax=15
-smin=10
+smax=20
+smin=2
 
 alpha_tbl_stable_rpm=0.05
 alpha_rud_mid=0.01
