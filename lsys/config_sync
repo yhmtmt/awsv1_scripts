@@ -1,0 +1,6 @@
+#!/bin/sh
+
+. ../config
+
+ip_svr=127.0.0.1
+port_svr=20001
