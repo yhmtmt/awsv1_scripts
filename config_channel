@@ -16,6 +16,8 @@ ch_ap_inst=ap_inst
 ch_img=img
 ch_map=map
 
+ch_nmea_data=nmea_data
+
 radar_image=radar_image
 radar_state=radar_state
 radar_ctrl=radar_ctrl
@@ -24,3 +26,6 @@ radar_ctrl=radar_ctrl
 
 schh2l="$ch_ctrl_ui $ch_ctrl_ap1"
 schl2h="$ch_state $ch_ctrl_stat $ch_ais_obj"
+
+#nmea data channel
+snchl2h="$ch_nmea_data"

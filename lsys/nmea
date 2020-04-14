@@ -15,7 +15,7 @@ do
 	    "nmea")nmea=${param[1]};;
 	    "ch_nmea_in")ch_nmea_in=${param[1]};;
 	    "ch_nmea_out")ch_nmea_out=${param[1]};;
-	    "ch_data_out")ch_data_out=${param[1]};;
+	    "ch_nmea_data")ch_nmea_data=${param[1]};;
 	    "verb") verb=${param[1]};;
 	    "go") go=${param[1]};;
 	esac
@@ -46,10 +46,10 @@ if [ -z "$ch_nmea_out" ]; then
 fi
 
 
-if [ -z "$ch_data_out" ]; then
-    ch_data_out=${nmea}_data_out
-    echo "$CHANNEL nmea_data $ch_data_out is instantiated."
-    $CHANNEL nmea_data $ch_data_out
+if [ -z "$ch_nmea_data" ]; then
+    ch_nmea_data=${nmea}_data_out
+    echo "$CHANNEL nmea_data $ch_nmea_data is instantiated."
+    $CHANNEL nmea_data $ch_nmea_data
 fi
 
 $FILTER nmea0183_device $nmea
@@ -57,5 +57,5 @@ $FSET $nmea src COM
 $FSET $nmea fnmea $dev
 $FSET $nmea bps $br
 $FSET $nmea verb $verb
-$FSET $nmea nmea_in $ch_nmea_in nmea_out $ch_nmea_out data_out $ch_data_out
+$FSET $nmea nmea_in $ch_nmea_in nmea_out $ch_nmea_out data_out $ch_nmea_data
 $RUN $nmea

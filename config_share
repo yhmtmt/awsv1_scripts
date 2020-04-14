@@ -3,3 +3,6 @@
 
 ip_svr=192.168.128.2
 port_svr=20100
+
+ip_nmea_data_svr=192.168.128.2
+port_nmea_data_svr=20101
