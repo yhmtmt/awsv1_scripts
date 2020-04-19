@@ -50,7 +50,7 @@ fi
 
 # object manager
 echo "Setting up OBJM"
-./obj ch_state=$ch_state ch_ais_obj=$ch_ais_obj verb=$dbg_obj
+./obj ch_state=$ch_state ch_nmea_data=$ch_nmea_data ch_ais_obj=$ch_ais_obj verb=$dbg_obj
 
 # waypoint manager
 echo "Setting up WPM"

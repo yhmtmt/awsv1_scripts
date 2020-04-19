@@ -13,6 +13,7 @@ do
 	    "object_manager") object_manager=${param[1]};;
 	    "ch_state") ch_state=${param[1]};;
 	    "ch_ais_obj") ch_ais_obj=${param[1]};;
+	    "ch_nmea_data") ch_nmea_data=${param[1]};;
 	    "verb") verb=${param[1]};;
 	    "go") go=${param[1]};;
 	esac
@@ -25,6 +26,7 @@ $FILTER object_manager $object_manager
 $FSET $object_manager range $range
 $FSET $object_manager dtold $dtold
 $FSET $object_manager ch_state $ch_state
+$FSET $object_manager ch_nmea_data $ch_nmea_data
 #$FSET $object_manager verb $verb
 
 if [ -n "$ch_ais_obj" ]; then
