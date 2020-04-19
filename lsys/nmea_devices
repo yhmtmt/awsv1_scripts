@@ -1,0 +1,59 @@
+#!/bin/bash
+. ../config
+verb=n
+go=n
+
+gff=n
+ais=n
+v104=n
+wx220=n
+
+for arg in $*
+do
+    if [[ $arg =~ ^[A-Za-z0-9_]*=[A-Za-z0-9_]*$ ]]; then
+	param=(${arg//=/ })
+	case ${param[0]} in
+	    "ch_nmea_data")ch_nmea_data=${param[1]};;
+	    "gff") gff=${param[1]};;
+	    "ais") ais=${param[1]};;
+	    "v104") v104=${param[1]};;
+	    "wx220") wx220=${param[1]};;  
+	    "verb") verb=${param[1]};;
+	    "go") go=${param[1]};;
+	esac
+    fi        
+done
+
+if [ -z $sw ]; then
+    echo "nmea_devices sw=<name> gff=<y or n> ais=<y or n> ap=<y or n> gps=<y or n> go=<y or n> verb=<y or n>"
+    exit
+fi
+
+if [ $gff = y ]; then
+    $CHANNEL nmea gff_nmea_in
+    $CHANNEL nmea gff_nmea_out
+
+    ./nmea nmea=gff ch_nmea_in=gff_nmea_out ch_nmea_out=gff_nmea_in ch_nmea_data=$ch_nmea_data verb=$verb
+fi
+
+if [ $ais = y ]; then
+    $CHANNEL nmea ais_nmea_in
+    $CHANNEL nmea ais_nmea_out
+
+    ./nmea nmea=ais ch_nmea_in=ais_nmea_out ch_nmea_out=ais_nmea_in  ch_nmea_data=$ch_nmea_data verb=$verb
+fi
+
+if [ $wx220 = y ]; then
+    $CHANNEL nmea wx220_nmea_in
+    $CHANNEL nmea wx220_nmea_out
+
+    ./nmea nmea=wx220 ch_nmea_in=wx220_nmea_out ch_nmea_out=wx220_nmea_in ch_nmea_data=$ch_nmea_data verb=$verb
+fi
+
+if [ $v104 = y ]; then
+    $CHANNEL nmea v104_nmea_in
+    $CHANNEL nmea v104_nmea_out
+
+    ./nmea nmea=v104 ch_nmea_in=v104_nmea_out ch_nmea_out=v104_nmea_in ch_nmea_data=$ch_nmea_data verb=$verb
+fi
+
