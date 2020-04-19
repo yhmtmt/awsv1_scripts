@@ -30,30 +30,26 @@ if [ -z $sw ]; then
 fi
 
 if [ $gff = y ]; then
-    $CHANNEL nmea gff_nmea_in
     $CHANNEL nmea gff_nmea_out
 
-    ./nmea nmea=gff ch_nmea_in=gff_nmea_out ch_nmea_out=gff_nmea_in ch_nmea_data=$ch_nmea_data verb=$verb
+    ./nmea nmea=gff ch_nmea_in=gff_nmea_out ch_nmea_data=$ch_nmea_data verb=$verb
 fi
 
 if [ $ais = y ]; then
-    $CHANNEL nmea ais_nmea_in
     $CHANNEL nmea ais_nmea_out
 
-    ./nmea nmea=ais ch_nmea_in=ais_nmea_out ch_nmea_out=ais_nmea_in  ch_nmea_data=$ch_nmea_data verb=$verb
+    ./nmea nmea=ais ch_nmea_in=ais_nmea_out ch_nmea_out=gff_nmea_out  ch_nmea_data=$ch_nmea_data verb=$verb
 fi
 
 if [ $wx220 = y ]; then
-    $CHANNEL nmea wx220_nmea_in
     $CHANNEL nmea wx220_nmea_out
 
-    ./nmea nmea=wx220 ch_nmea_in=wx220_nmea_out ch_nmea_out=wx220_nmea_in ch_nmea_data=$ch_nmea_data verb=$verb
+    ./nmea nmea=wx220 ch_nmea_in=wx220_nmea_out ch_nmea_data=$ch_nmea_data verb=$verb
 fi
 
 if [ $v104 = y ]; then
-    $CHANNEL nmea v104_nmea_in
     $CHANNEL nmea v104_nmea_out
 
-    ./nmea nmea=v104 ch_nmea_in=v104_nmea_out ch_nmea_out=v104_nmea_in ch_nmea_data=$ch_nmea_data verb=$verb
+    ./nmea nmea=v104 ch_nmea_in=v104_nmea_out ch_nmea_out=gff_nmea_out ch_nmea_data=$ch_nmea_data verb=$verb
 fi
 
