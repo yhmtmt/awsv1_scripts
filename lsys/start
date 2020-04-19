@@ -47,8 +47,9 @@ $CHANNEL nmea_data $ch_nmea_data
 ./ctrl ctrl=ctrl ch_ctrl_ui=$ch_ctrl_ui ch_ctrl_ap=$ch_ctrl_ap ch_ctrl_stat=$ch_ctrl_stat verb=$dbg_ctrl
 
 ./nmea_manager sw=sw ch_nmea_in=$ch_nmea_in ch_nmea_out=$ch_nmea_out ch_state=$ch_state gff=$gff ais=$ais v104=$v104 wx220=$wx220 ch_ais_obj=$ch_ais_obj ch_nmea_data=$ch_nmea_data verb=$dbg_sw
+#./nmea_devices ch_state=$ch_state gff=$gff ais=$ais v104=$v104 wx220=$wx220 ch_ais_obj=$ch_ais_obj ch_nmea_data=$ch_nmea_data verb=$dbg_sw #future version
 
 ./share share=share -i $schl2h -o $schh2l verb=$dbg_share svr=y
 
-./share_nmea_data -i $snchl2h verb=$dbg_share svr=y
+#./sync
 

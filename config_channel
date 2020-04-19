@@ -25,7 +25,6 @@ radar_ctrl=radar_ctrl
 #channel sharing
 
 schh2l="$ch_ctrl_ui $ch_ctrl_ap1"
-schl2h="$ch_state $ch_ctrl_stat $ch_ais_obj"
+schl2h="$ch_state $ch_ctrl_stat $ch_ais_obj $ch_nmea_data"
+#schl2h="$ch_ctrl_stat $ch_nmea_data" #future version
 
-#nmea data channel
-snchl2h="$ch_nmea_data"

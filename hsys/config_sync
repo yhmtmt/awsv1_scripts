@@ -2,5 +2,5 @@
 
 . ../config
 
-ip_svr=127.0.0.1
+ip_svr=192.168.128.2
 port_svr=20001
