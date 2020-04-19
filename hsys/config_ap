@@ -28,5 +28,5 @@ devyaw=0.052
 devcog=0.052
 devsog=1.0
 devrev=500
-fctrl_state=$path_aws/ctrl_state.json
+fctrl_state=ctrl_state.json
 
