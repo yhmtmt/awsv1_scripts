@@ -3,10 +3,6 @@
 ch_state=state
 ch_state_sim=state_sim
 ch_env=env
-ch_ctrl_stat=aws1_ctrl_stat
-ch_ctrl_stat_sim=aws1_ctrl_stat_sim
-ch_ctrl_ui=aws1_ctrl_ui
-ch_ctrl_ap=aws1_ctrl_ap
 ch_ais_obj=ais_obj
 
 ch_engstate=engstate
@@ -16,15 +12,23 @@ ch_ap_inst=ap_inst
 ch_img=img
 ch_map=map
 
-ch_nmea_data=nmea_data
+ch_nmea_data_all=nmea_data_all
+ch_nmea_data_ais=nmea_data_ais
+
+ch_n2k_data=n2k_data
+
+ch_ctrl_ui_to_ap=ch_ctrl_ui_to_ap
+ch_ctrl_ap_to_ui=ch_ctrl_ap_to_ui
+ch_ctrl_ap_to_ctrl=ch_ctrl_ap_to_ctrl
+ch_ctrl_ctrl_to_ap=ch_ctrl_ctrl_to_ap
 
 radar_image=radar_image
 radar_state=radar_state
 radar_ctrl=radar_ctrl
 
+ch_time_sync=time_sync
+
 #channel sharing
 
-schh2l="$ch_ctrl_ui $ch_ctrl_ap1"
-schl2h="$ch_state $ch_ctrl_stat $ch_ais_obj $ch_nmea_data"
-#schl2h="$ch_ctrl_stat $ch_nmea_data" #future version
-
+schh2l="$ch_ctrl_ap_to_ctrl"
+schl2h="$ch_nmea_data $ch_ctrl_ctrl_to_ap"

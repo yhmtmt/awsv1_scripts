@@ -12,6 +12,7 @@ do
 	param=(${arg//=/ })
 	case ${param[0]} in
 	    "ch_engstate") ch_engstate=${param[1]};;
+	    "ch_n2k_data") ch_n2k_data=${param[1]};;
 	    "n2k_ngt1")n2k_ngt1=${param[1]};;
 	    "verb") verb=${param[1]};;
 	    "go") go=${param[1]};;
@@ -32,8 +33,14 @@ if [ -z "$ch_engstate" ]; then
     $CHANNEL engstate $ch_engstate
 fi
 
+if [ -z "$ch_n2k_data" ]; then
+    ch_n2k_data=n2k_data
+    $CHANNEL n2k_data $n2k_data
+fi
+
 $FILTER n2k_ngt1 $n2k_ngt1
 $FSET $n2k_ngt1 ch_eng_state $ch_engstate
+$FSET $n2k_ngt1 ch_n2k_data $ch_n2k_data
 $FSET $n2k_ngt1 dev $dev br $br
 $FSET $n2k_ngt1 verb $verb
 $FSET $n2k_ngt1 ShowTxt $ShowTxt ShowJson $ShowJson

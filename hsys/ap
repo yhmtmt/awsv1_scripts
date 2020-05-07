@@ -17,10 +17,10 @@ do
 	    "autopilot") autopilot=${param[1]};;
 	    "ch_state") ch_state=${param[1]};;
 	    "ch_engstate")ch_engstate=${param[1]};;			  
-	    "ch_wp") ch_wp=${param[1]};;
-	    "ch_ctrl_stat") ch_ctrl_stat=${param[1]};;
-	    "ch_ctrl_inst") ch_ctrl_inst=${param[1]};;
-	    "ch_ap_inst") ch_ap_inst=${param[1]};;
+	    "ch_ctrl_from_ui") ch_ctrl_from_ui=${param[1]};;
+	    "ch_ctrl_from_ctrl") ch_ctrl_from_ctrl=${param[1]};;	    
+	    "ch_ctrl_to_ui") ch_ctrl_to_ui=${param[1]};;
+	    "ch_ctrl_to_ctrl") ch_ctrl_to_ctrl=${param[1]};;	    
 	    "verb") verb=${param[1]};;
 	    "go") go=${param[1]};;
 	esac
@@ -31,12 +31,12 @@ done
 
 $FILTER autopilot $autopilot
 $FSET $autopilot ch_state $ch_state
-$FSET $autopilot ch_wp $ch_wp
 $FSET $autopilot ch_engstate $ch_engstate
-$FSET $autopilot ch_ctrl_stat $ch_ctrl_stat
-$FSET $autopilot ch_ctrl_inst $ch_ctrl_inst
-$FSET $autopilot ch_ap_inst $ch_ap_inst
-$FSET $autopilot Interval 30
+$FSET $autopilot ch_ctrl_from_ui $ch_ctrl_from_ui
+$FSET $autopilot ch_ctrl_from_ctrl $ch_ctrl_from_ctrl
+$FSET $autopilot ch_ctrl_to_ui $ch_ctrl_to_ui
+$FSET $autopilot ch_ctrl_to_ctrl $ch_ctrl_to_ctrl
+$FSET $autopilot Interval 1
 $FSET $autopilot smax $smax smin $smin
 $FSET $autopilot eng_max $eng_max eng_min $eng_min
 $FSET $autopilot pc $pc ic $ic dc $dc ps $ps is $is ds $ds

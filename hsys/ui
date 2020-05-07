@@ -14,9 +14,8 @@ do
 	    "ui_manager") ui_manager=${param[1]};;      # name of ui filter
 	    "ch_state") ch_state=${param[1]};;    # state of my own ship
 	    "ch_engstate") ch_engstate=${param[1]};;
-	    "ch_ctrl_stat") ch_ctrl_stat=${param[1]};; # state of controler
-	    "ch_ctrl_inst") ch_ctrl_inst=${param[1]};; # instruction to controler
-	    "ch_ap_inst") ch_ap_inst=${param[1]};;# instruction to autopilot
+	    "ch_ctrl_in") ch_ctrl_in=${param[1]};;
+	    "ch_ctrl_out") ch_ctrl_out=${param[1]};;
 	    "ch_wp") ch_wp=${param[1]};;          # way point
 	    "ch_ais_obj") ch_ais_obj=${param[1]};;# ais object	    
 	    "ch_map") ch_map=${param[1]};;        # map
@@ -57,16 +56,12 @@ if [ -n "$ch_wp" ]; then
     $FSET $ui_manager ch_wp $ch_wp
 fi
 
-if [ -n "$ch_ctrl_stat" ]; then
-    $FSET $ui_manager ch_ctrl_stat $ch_ctrl_stat
+if [ -n "$ch_ctrl_in" ]; then
+    $FSET $ui_manager ch_ctrl_in $ch_ctrl_in
 fi
 
-if [ -n "$ch_ctrl_inst" ]; then
-    $FSET $ui_manager ch_ctrl_inst $ch_ctrl_inst
-fi
-
-if [ -n "$ch_ap_inst" ]; then    
-    $FSET $ui_manager ch_ap_inst $ch_ap_inst
+if [ -n "$ch_ctrl_out" ]; then
+    $FSET $ui_manager ch_ctrl_out $ch_ctrl_out
 fi
 
 if [ -n "$ch_map" ]; then

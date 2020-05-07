@@ -11,6 +11,7 @@ do
 	param=(${arg//=/ })
 	case ${param[0]} in
 	    "tsync")tsync=${param[1]};;
+	    "ch_time_sync")ch_time_sync=${param[1]};;
 	    "verb") verb=${param[1]};;
 	esac
     fi    
@@ -20,6 +21,7 @@ done
 
 $FILTER time_sync $tsync
 $FSET $tsync host_svr $ip_svr
+$FSET $tsync ch_time_sync $ch_time_sync
 $FSET $tsync port_svr $port_svr
 
 $FSET $tsync verb $verb

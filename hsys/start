@@ -13,8 +13,6 @@ sim=n
 . ../config
 . ../config_channel
 
-logchan="state $ch_ctrl_ui $ch_ctrl_ap $ch_ctrl_stat $ch_ais_obj $ch_engstate"
-
 for arg in $*
 do
     if [[ $arg =~ ^[A-Za-z0-9_]*=[A-Za-z0-9_]*$ ]]; then
@@ -30,27 +28,54 @@ $CHANNEL state $ch_state
 $CHANNEL engstate $ch_engstate
 $CHANNEL wp $ch_wp
 $CHANNEL ais_obj $ch_ais_obj
-$CHANNEL aws1_ctrl_stat $ch_ctrl_stat
-$CHANNEL aws1_ctrl_inst $ch_ctrl_ui
-$CHANNEL aws1_ctrl_inst $ch_ctrl_ap
-$CHANNEL aws1_ap_inst $ch_ap_inst
 $CHANNEL map $ch_map
 
-$CHANNEL radar_state $radar_state
-$CHANNEL radar_image $radar_image
-$CHANNEL radar_ctrl $radar_ctrl
-$CHANNEL nmea_data $ch_nmea_data
+$CHANNEL ctrl_data $ch_ctrl_ui_to_ap
+$CHANNEL ctrl_data $ch_ctrl_ap_to_ui
+$CHANNEL ctrl_data $ch_ctrl_ap_to_ctrl
+$CHANNEL ctrl_data $ch_ctrl_ctrl_to_ap
 
 caws clock run
 
 if [ $sim = "y" ]; then
     echo "Setting up SIM"
-    ./sim ch_state=$ch_state ch_engstate=$ch_engstate ch_ctrl_stat=$ch_ctrl_stat ch_ctrl_ui=$ch_ctrl_ui ch_ctrl_ap=$ch_ctrl_ap ch_state_sim=$ch_state ch_engstate_sim=$ch_engstate ch_ctrl_stat_sim=$ch_ctrl_stat stime=$stime
+    ./sim ch_state=$ch_state ch_engstate=$ch_engstate ch_ctrl_in=$ch_ctrl_ap_to_ctrl ch_ctrl_out=$ch_ctrl_ctrl_to_ap ch_state_sim=$ch_state ch_engstate_sim=$ch_engstate stime=$stime
+else
+    $CHANNEL radar_state $radar_state
+    $CHANNEL radar_image $radar_image
+    $CHANNEL radar_ctrl $radar_ctrl
+    $CHANNEL nmea_data $ch_nmea_data_all
+    $CHANNEL nmea_data $ch_nmea_data_ais
+    $CHANNEL n2k_data $ch_n2k_data    
+    $CHANNEL time_sync $ch_time_sync
+    
+    echo "Setting up SYNC"
+    ./sync ch_time_sync=$ch_time_sync
+    
+    # n2k interface
+    echo "Setting up N2K"
+    ./n2k ch_engstate=$ch_engstate ch_n2k_data=$ch_n2k_data verb=$dbg_n2k
+
+    # radar
+    echo "Setting up Radar"
+    ./radar radar="radar" state=$ch_state radar_state=$radar_state radar_image=$radar_image radar_ctrl=$radar_ctrl
+
+    # channel sharing
+    echo "Settng up CHS"
+    ./share data_sharing_manager=share -i $schh2l -o $schl2h verb=$dbg_share svr=n
+    echo "Setting up STATE"
+    ./state ch_state=$ch_state ch_engstate=$ch_engstate ch_nmea_data_in=$ch_nmea_data_all ch_nmea_data_out=$ch_nmea_data_ais ch_n2k_data_in=$ch_n2k_data ch_time_sync=$ch_time_sync
+    
+    # object manager
+    echo "Setting up OBJM"
+    ./obj ch_state=$ch_state ch_nmea_data=$ch_nmea_data_ais ch_ais_obj=$ch_ais_obj verb=$dbg_obj
+
 fi
 
-# object manager
-echo "Setting up OBJM"
-./obj ch_state=$ch_state ch_nmea_data=$ch_nmea_data ch_ais_obj=$ch_ais_obj verb=$dbg_obj
+# autopilot
+echo "Setting up AP"
+
+./ap ch_state=$ch_state ch_engstate=$ch_engstate ch_wp=$ch_wp ch_ctrl_stat=$ch_ctrl_stat ch_ctrl_inst=$ch_ctrl_ap ch_ap_inst=$ch_ap_inst ch_ctrl_from_ui=$ch_ctrl_ui_to_ap ch_ctrl_from_ctrl=$ch_ctrl_ctrl_to_ap ch_ctrl_to_ui=$ch_ctrl_ap_to_ui ch_ctrl_to_ctrl=$ch_ctrl_ap_to_ctrl ch_ctrl_verb=$dbg_ap
 
 # waypoint manager
 echo "Setting up WPM"
@@ -60,31 +85,7 @@ echo "Setting up WPM"
 echo "Setting up MAP"
 ./map map_manager=map ch_map=$ch_map
 
-###### real time mode (includes simulation mode) ######
-
-# autopilot
-echo "Setting up AP"
-./ap ch_state=$ch_state ch_engstate=$ch_engstate ch_wp=$ch_wp ch_ctrl_stat=$ch_ctrl_stat ch_ctrl_inst=$ch_ctrl_ap ch_ap_inst=$ch_ap_inst verb=$dbg_ap
-    
-$CHANNEL state $ch_state_sim
-$CHANNEL engstate $ch_engstate_sim
-$CHANNEL aws1_ctrl_stat $ch_ctrl_stat_sim
-
-# n2k interface
-echo "Setting up N2K"
-./n2k ch_engstate=$ch_engstate verb=$dbg_n2k
-
-# radar
-echo "Setting up Radar"
-./radar radar="radar" state=$ch_state radar_state=$radar_state radar_image=$radar_image radar_ctrl=$radar_ctrl
-
-# channel sharing
-echo "Settng up CHS"
-./share data_sharing_manager=share -i $schh2l -o $schl2h verb=$dbg_share svr=n
-
 # user interface
 echo "Setting up UI"
-./ui ch_state=$ch_state ch_engstate=$ch_engstate ch_wp=$ch_wp ch_ctrl_stat=$ch_ctrl_stat ch_ctrl_inst=$ch_ctrl_ui ch_ap_inst=$ch_ap_inst ch_ais_obj=$ch_ais_obj ch_map=$ch_map verb=$dbg_ui ch_radar_state=$radar_state ch_radar_image=$radar_image ch_radar_ctrl=$radar_ctrl
+./ui ch_state=$ch_state ch_engstate=$ch_engstate ch_wp=$ch_wp ch_ctrl_in=$ch_ctrl_ap_to_ui ch_ctrl_out=$ch_ctrl_ui_to_ap ch_ais_obj=$ch_ais_obj ch_map=$ch_map verb=$dbg_ui ch_radar_state=$radar_state ch_radar_image=$radar_image ch_radar_ctrl=$radar_ctrl
 
-#echo "Setting up SYNC"
-#./sync #future version

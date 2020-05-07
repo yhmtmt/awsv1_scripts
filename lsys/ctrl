@@ -13,6 +13,8 @@ do
 	    "ch_ctrl_ui") ch_ctrl_ui=${param[1]};;  # state of my own ship
 	    "ch_ctrl_ap") ch_ctrl_ap=${param[1]};; # state of controler
 	    "ch_ctrl_stat") ch_ctrl_stat=${param[1]};;# instruction to autopilot
+	    "ch_ctrl_in") ch_ctrl_in=${param[1]};;
+	    "ch_ctrl_out") ch_ctrl_out=${param[1]};;
 	    "verb") verb=${param[1]};;
 	    "go") go=${param[1]};;
 	esac
@@ -27,12 +29,12 @@ fi
 . ./config_ctrl
 
 $FILTER control_aws1 $ctrl
-if [ -n "$ch_ctrl_ui" ]; then
-    $FSET $ctrl ch_ctrl_ui $ch_ctrl_ui
+if [ -n "$ch_ctrl_out" ]; then
+    $FSET $ctrl ch_ctrl_out $ch_ctrl_out
 fi
 
-if [ -n "$ch_ctrl_ap" ]; then
-    $FSET $ctrl ch_ctrl_ap $ch_ctrl_ap
+if [ -n "$ch_ctrl_in" ]; then
+    $FSET $ctrl ch_ctrl_in $ch_ctrl_in
 fi
 
 $FSET $ctrl ch_ctrl_stat $ch_ctrl_stat
@@ -42,7 +44,6 @@ $FSET $ctrl sim no
 
 $FSET $ctrl eng_max $eng_max eng_nuf $eng_nuf eng_nut $eng_nut eng_nub $eng_nub eng_min $eng_min
 $FSET $ctrl rud_max $rud_max rud_nut $rud_nut rud_min $rud_min
-$FSET $ctrl awsrud $awsrud awseng $awseng
 
 $RUN $ctrl
 
