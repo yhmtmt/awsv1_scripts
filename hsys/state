@@ -19,6 +19,7 @@ do
 	    "ch_n2k_data_in") ch_nmea_data_in=${param[1]};;
 	    "ch_n2k_data_out") ch_nmea_data_out=${param[1]};;
 	    "ch_time_sync") ch_time_sync=${param[1]};;
+	    "replay") replay=${param[1]};;
 	    "verb") verb=${param[1]};;
 	    "go") go=${param[1]};;
 	esac
@@ -30,6 +31,7 @@ done
 path_csv=$path_data/sim_$stime.csv
 
 $FILTER state_estimator $state_estimator
+$FILTER $state_estimator replay $replay
 
 if [ -n "$ch_state" ]; then
     $FSET $state_estimator state $ch_state

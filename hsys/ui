@@ -23,7 +23,8 @@ do
 	    "ch_disp") ch_disp=${param[1]};;	  # disparity image
 	    "ch_radar_image") ch_radar_image=${param[1]};;
 	    "ch_radar_ctrl") ch_radar_ctrl=${param[1]};;
-	    "ch_radar_state") ch_radar_state=${param[1]};;	    
+	    "ch_radar_state") ch_radar_state=${param[1]};;
+	    "replay") replay=${param[1]};;
 	    "verb") verb=${param[1]};;
 	    "go") go=${param[1]};;
 	esac
@@ -43,6 +44,7 @@ $FSET $ui_manager js $joystick
 $FSET $ui_manager storage $path_data
 $FSET $ui_manager path_quit_script $path_quit_script
 $FSET $ui_manager quit_script $quit_script
+$FSET $ui_manager replay $replay
 
 if [ -n "$ch_state" ]; then
     $FSET $ui_manager ch_state $ch_state

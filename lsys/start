@@ -40,7 +40,6 @@ $CHANNEL state $ch_state
 $CHANNEL ctrl_data $ch_ctrl_ctrl_to_ap
 $CHANNEL ctrl_data $ch_ctrl_ap_to_ctrl
 $CHANNEL nmea_data $ch_nmea_data
-$CHANNEL time_sync $ch_time_sync
 
 ./ctrl ctrl=ctrl ch_ctrl_in=$ch_ctrl_ap_to_ctrl ch_ctrl_out=$ch_ctrl_ctrl_to_ap verb=$dbg_ctrl
 
@@ -48,5 +47,5 @@ $CHANNEL time_sync $ch_time_sync
 
 ./share share=share -i $schl2h -o $schh2l verb=$dbg_share svr=y
 
-./sync ch_time_sync=$ch_time_sync
+./sync
 
