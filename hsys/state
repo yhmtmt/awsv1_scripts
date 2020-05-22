@@ -16,8 +16,8 @@ do
 	    "ch_engstate") ch_engstate=${param[1]};;
 	    "ch_nmea_data_in") ch_nmea_data_in=${param[1]};;
 	    "ch_nmea_data_out") ch_nmea_data_out=${param[1]};;
-	    "ch_n2k_data_in") ch_nmea_data_in=${param[1]};;
-	    "ch_n2k_data_out") ch_nmea_data_out=${param[1]};;
+	    "ch_n2k_data_in") ch_n2k_data_in=${param[1]};;
+	    "ch_n2k_data_out") ch_n2k_data_out=${param[1]};;
 	    "ch_time_sync") ch_time_sync=${param[1]};;
 	    "replay") replay=${param[1]};;
 	    "verb") verb=${param[1]};;
@@ -26,7 +26,7 @@ do
     fi    
 done
 
-. ./config_state
+. ../config
 
 path_csv=$path_data/sim_$stime.csv
 

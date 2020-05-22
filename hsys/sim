@@ -18,6 +18,8 @@ do
 	    "ch_ctrl_out") ch_ctrl_out=${param[1]};;
 	    "ch_state_sim") ch_state_sim=${param[1]};;
 	    "ch_engstate_sim") ch_engstate_sim=${param[1]};;
+	    "ch_gps_nmea")ch_gps_nmea=${param[1]};;
+	    "ch_eng_n2k_data")ch_eng_n2k_data=${param[1]};;   
 	    "verb") verb=${param[1]};;
 	    "go") go=${param[1]};;
 	esac
@@ -59,6 +61,14 @@ if [ -n "$ch_engstate_sim" ]; then
     $FSET $sim_aws1 ch_engstate_sim $ch_engstate_sim
 fi
 
+if [ -n "$ch_gps_nmea" ]; then
+    $FSET $sim_aws1 ch_gps_nmea $ch_gps_nmea
+fi
+
+if [ -n "ch_eng_n2k_data" ]; then
+    $FSET $sim_aws1 ch_eng_n2k_data $ch_eng_n2k_data
+fi
+
 $FSET $sim_aws1 eng_max $eng_max eng_nuf $eng_nuf eng_nut $eng_nut eng_nub $eng_nub eng_min $eng_min
 $FSET $sim_aws1 rud_max $rud_max rud_nut $rud_nut rud_min $rud_min
 
@@ -96,5 +106,5 @@ $FSET $sim_aws1 rslack $rslack rrud $rrud ruds $ruds rudp $rudp
 $FSET $sim_aws1 fth $fth bth $bth umax $umax umin $umin rgamma $rgamma rfdelta $rfdelta rbdelta $rbdelta
 $FSET $sim_aws1 r0f $r0f rpf $rpf rff $rff e0f $e0f e0df $e0df epf $epf epdf $epdf eff $eff qddf $qddf qudf $qudf qdpf $qdpf qupf $qupf
 $FSET $sim_aws1 r0b $r0b rfb $rfb e0b $e0b e0db $e0db efb $efb qdb $qdb qub $qub
-
+$FSET $sim_aws1 cycle_gps_report $cycle_gps_report
 $RUN $sim_aws1

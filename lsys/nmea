@@ -6,6 +6,8 @@ nmea=
 
 ch_nmea_in=
 ch_nmea_out=
+ch_nmea_to_dev=
+ch_nmea_from_dev=
 
 for arg in $*
 do
@@ -16,6 +18,8 @@ do
 	    "ch_nmea_in")ch_nmea_in=${param[1]};;
 	    "ch_nmea_out")ch_nmea_out=${param[1]};;
 	    "ch_nmea_data")ch_nmea_data=${param[1]};;
+	    "ch_nmea_to_dev")ch_nmea_to_dev=${param[1]};;
+	    "ch_nmea_from_dev")ch_nmea_from_dev=${param[1]};;
 	    "verb") verb=${param[1]};;
 	    "go") go=${param[1]};;
 	esac
@@ -53,9 +57,17 @@ if [ -z "$ch_nmea_data" ]; then
 fi
 
 $FILTER nmea0183_device $nmea
-$FSET $nmea src COM
 $FSET $nmea fnmea $dev
 $FSET $nmea bps $br
 $FSET $nmea verb $verb
-$FSET $nmea nmea_in $ch_nmea_in nmea_out $ch_nmea_out data_out $ch_nmea_data
+$FSET $nmea data_out $ch_nmea_data
+# only used in simulation mode (nmea sentences are from other filters emulating devices)
+if [ -n "$ch_nmea_to_dev" ] && [ -n "$ch_nmea_from_dev" ]; then
+    $FSET $nmea src CHAN
+    $FSET $nmea to_dev $ch_nmea_to_dev from_dev $ch_nmea_from_dev
+else
+    $FSET $nmea src COM    
+    $FSET $nmea nmea_in $ch_nmea_in nmea_out $ch_nmea_out
+fi
+
 $RUN $nmea

@@ -27,6 +27,12 @@ do
     fi    
 done
 
+
+$CHANNEL nmea_data $ch_nmea_data_all
+$CHANNEL nmea_data $ch_nmea_data_ais
+$CHANNEL n2k_data $ch_n2k_data    
+$CHANNEL time_sync $ch_time_sync
+
 $CHANNEL state $ch_state
 $CHANNEL engstate $ch_engstate
 $CHANNEL wp $ch_wp
@@ -57,24 +63,31 @@ if [ $replay = "ui" ]; then
     replay_ui=y    
 fi
 
-if [ $sim = "y" ] && [ $replay = "ui" ]; then
-    echo "Setting up SIM"
-    ./sim ch_state=$ch_state ch_engstate=$ch_engstate ch_ctrl_in=$ch_ctrl_ap_to_ctrl ch_ctrl_out=$ch_ctrl_ctrl_to_ap ch_state_sim=$ch_state ch_engstate_sim=$ch_engstate stime=$stime
+if [ $sim = "y" ] || [ $replay = "ui" ]; then
+    ch_nmea_state_to_dev=nmea_state_to_dev
+    ch_nmea_state_from_dev=nmea_state_from_dev
+    $CHANNEL nmea $ch_nmea_state_to_dev
+    $CHANNEL nmea $ch_nmea_state_from_dev    
+    $CHANNEL state $ch_state_sim
+    $CHANNEL engstate $ch_engstate_sim
+    
+    echo "Setting up SIM"    
+    ./sim ch_state=$ch_state_sim ch_engstate=$ch_engstate_sim ch_ctrl_in=$ch_ctrl_ap_to_ctrl ch_ctrl_out=$ch_ctrl_ctrl_to_ap ch_state_sim=$ch_state_sim ch_engstate_sim=$ch_engstate_sim stime=$stime ch_gps_nmea=$ch_nmea_state_from_dev ch_eng_n2k_data=$ch_n2k_data
+
+    echo "Setting up virtual V104"
+    ../lsys/nmea nmea=v104 ch_nmea_to_dev=$ch_nmea_state_to_dev ch_nmea_from_dev=$ch_nmea_state_from_dev ch_nmea_data=$ch_nmea_data_all
+    
 else
     $CHANNEL radar_state $radar_state
     $CHANNEL radar_image $radar_image
     $CHANNEL radar_ctrl $radar_ctrl
-    $CHANNEL nmea_data $ch_nmea_data_all
-    $CHANNEL nmea_data $ch_nmea_data_ais
-    $CHANNEL n2k_data $ch_n2k_data    
-    $CHANNEL time_sync $ch_time_sync
     
     echo "Setting up SYNC"
     ./sync ch_time_sync=$ch_time_sync replay=$replay_sync
     
     # n2k interface
     echo "Setting up N2K"
-    ./n2k ch_engstate=$ch_engstate ch_n2k_data=$ch_n2k_data verb=$dbg_n2k
+    ./n2k ch_n2k_data=$ch_n2k_data verb=$dbg_n2k
 
     # radar
     echo "Setting up Radar"
@@ -82,15 +95,15 @@ else
 
     # channel sharing
     echo "Settng up CHS"
-    ./share data_sharing_manager=share -i $schh2l -o $schl2h verb=$dbg_share svr=n
-    echo "Setting up STATE"
-    ./state ch_state=$ch_state ch_engstate=$ch_engstate ch_nmea_data_in=$ch_nmea_data_all ch_nmea_data_out=$ch_nmea_data_ais ch_n2k_data_in=$ch_n2k_data ch_time_sync=$ch_time_sync replay=$replay_nmea
-    
-    # object manager
-    echo "Setting up OBJM"
-    ./obj ch_state=$ch_state ch_nmea_data=$ch_nmea_data_ais ch_ais_obj=$ch_ais_obj verb=$dbg_obj
-
+    ./share data_sharing_manager=share -i $schh2l -o $schl2h verb=$dbg_share svr=n   
 fi
+
+echo "Setting up STATE"
+./state ch_state=$ch_state ch_engstate=$ch_engstate ch_nmea_data_in=$ch_nmea_data_all ch_nmea_data_out=$ch_nmea_data_ais ch_n2k_data_in=$ch_n2k_data ch_time_sync=$ch_time_sync replay=$replay_nmea
+
+# object manager
+echo "Setting up OBJM"
+./obj ch_state=$ch_state ch_nmea_data=$ch_nmea_data_ais ch_ais_obj=$ch_ais_obj verb=$dbg_obj
 
 # autopilot
 echo "Setting up AP"
