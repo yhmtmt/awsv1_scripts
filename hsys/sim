@@ -106,5 +106,5 @@ $FSET $sim_aws1 rslack $rslack rrud $rrud ruds $ruds rudp $rudp
 $FSET $sim_aws1 fth $fth bth $bth umax $umax umin $umin rgamma $rgamma rfdelta $rfdelta rbdelta $rbdelta
 $FSET $sim_aws1 r0f $r0f rpf $rpf rff $rff e0f $e0f e0df $e0df epf $epf epdf $epdf eff $eff qddf $qddf qudf $qudf qdpf $qdpf qupf $qupf
 $FSET $sim_aws1 r0b $r0b rfb $rfb e0b $e0b e0db $e0db efb $efb qdb $qdb qub $qub
-$FSET $sim_aws1 cycle_gps_report $cycle_gps_report
+$FSET $sim_aws1 cycle_gps_report $cycle_gps_report cycle_eng_report $cycle_eng_report
 $RUN $sim_aws1

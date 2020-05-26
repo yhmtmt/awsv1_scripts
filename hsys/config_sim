@@ -4,6 +4,7 @@
 
 int_smpl=0.0333333
 cycle_gps_report=0.1
+cycle_eng_report=0.1
 
 wismpl=100
 wosmpl=100
