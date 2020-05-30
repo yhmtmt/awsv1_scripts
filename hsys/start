@@ -47,20 +47,29 @@ $CHANNEL ctrl_data $ch_ctrl_ctrl_to_ap
 if [ $replay = "n" ]; then    
     caws clock run
 else
-    caws clock run -s $tstart    
+    echo "Replay mode start from $tstart"
+    caws clock run -s $tstart -o n
 fi
 
 
 replay_sync=n
 replay_nmea=n
+log_nmea=y
+log_ctrl=y
 if [ $replay = "nmea" ]; then
+    echo "Replay NMEA data at state filter."
     replay_nmea=y
     replay_sync=y
+    log_nmea=n
+    log_ctrl=n
 fi
 
 replay_ui=n
 if [ $replay = "ui" ]; then
-    replay_ui=y    
+    echo "Replay Control data at ui filter."
+    replay_ui=y
+    log_nmea=n
+    log_ctrl=n
 fi
 
 if [ $sim = "y" ] || [ $replay = "ui" ]; then
@@ -99,7 +108,7 @@ else
 fi
 
 echo "Setting up STATE"
-./state ch_state=$ch_state ch_engstate=$ch_engstate ch_nmea_data_in=$ch_nmea_data_all ch_nmea_data_out=$ch_nmea_data_ais ch_n2k_data_in=$ch_n2k_data ch_time_sync=$ch_time_sync replay=$replay_nmea
+./state ch_state=$ch_state ch_engstate=$ch_engstate ch_nmea_data_in=$ch_nmea_data_all ch_nmea_data_out=$ch_nmea_data_ais ch_n2k_data_in=$ch_n2k_data ch_time_sync=$ch_time_sync log_nmea=$log_nmea replay=$replay_nmea
 
 # object manager
 echo "Setting up OBJM"
@@ -120,5 +129,5 @@ echo "Setting up MAP"
 
 # user interface
 echo "Setting up UI"
-./ui ch_state=$ch_state ch_engstate=$ch_engstate ch_wp=$ch_wp ch_ctrl_in=$ch_ctrl_ap_to_ui ch_ctrl_out=$ch_ctrl_ui_to_ap ch_ais_obj=$ch_ais_obj ch_map=$ch_map verb=$dbg_ui ch_radar_state=$radar_state ch_radar_image=$radar_image ch_radar_ctrl=$radar_ctrl replay=$replay_ui
+./ui ch_state=$ch_state ch_engstate=$ch_engstate ch_wp=$ch_wp ch_ctrl_in=$ch_ctrl_ap_to_ui ch_ctrl_out=$ch_ctrl_ui_to_ap ch_ais_obj=$ch_ais_obj ch_map=$ch_map verb=$dbg_ui ch_radar_state=$radar_state ch_radar_image=$radar_image ch_radar_ctrl=$radar_ctrl log_ctrl=$log_ctrl replay=$replay_ui
 

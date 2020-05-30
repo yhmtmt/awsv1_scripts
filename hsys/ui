@@ -24,6 +24,7 @@ do
 	    "ch_radar_image") ch_radar_image=${param[1]};;
 	    "ch_radar_ctrl") ch_radar_ctrl=${param[1]};;
 	    "ch_radar_state") ch_radar_state=${param[1]};;
+	    "log_ctrl") log_ctrl=${param[1]};;
 	    "replay") replay=${param[1]};;
 	    "verb") verb=${param[1]};;
 	    "go") go=${param[1]};;
@@ -95,5 +96,7 @@ fi
 if [ -n "$ch_radar_ctrl" ]; then
     $FSET $ui_manager ch_radar_ctrl $ch_radar_ctrl
 fi
+
+$FSET $ui_manager log_ctrl $log_ctrl
 
 $RUN $ui_manager

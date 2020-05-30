@@ -15,7 +15,7 @@ ds=0.1
 prev=0.1
 irev=0.001
 drev=0.1
-
+ctrl_cycle=0.3
 smax=20
 smin=2
 
