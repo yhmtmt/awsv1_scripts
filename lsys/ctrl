@@ -10,9 +10,6 @@ do
 	param=(${arg//=/ })
 	case ${param[0]} in
 	    "ctrl") ctrl=${param[1]};;      # name of ctrl $FILTER
-	    "ch_ctrl_ui") ch_ctrl_ui=${param[1]};;  # state of my own ship
-	    "ch_ctrl_ap") ch_ctrl_ap=${param[1]};; # state of controler
-	    "ch_ctrl_stat") ch_ctrl_stat=${param[1]};;# instruction to autopilot
 	    "ch_ctrl_in") ch_ctrl_in=${param[1]};;
 	    "ch_ctrl_out") ch_ctrl_out=${param[1]};;
 	    "verb") verb=${param[1]};;
@@ -22,7 +19,7 @@ do
 done
 
 if [ -z "$ctrl" ]; then
-    echo "ctrl ctrl=<name> ch_ctrl_ui=<control from ui> ch_ctrl_ap=<control from ap> ch_ctrl_stat=<control status> verb=<y or n> go=<y or n>"
+    echo "ctrl ctrl=<name> ch_ctrl_stat=<control status> verb=<y or n> go=<y or n>"
 fi
 
 . ../config
@@ -37,7 +34,6 @@ if [ -n "$ch_ctrl_in" ]; then
     $FSET $ctrl ch_ctrl_in $ch_ctrl_in
 fi
 
-$FSET $ctrl ch_ctrl_stat $ch_ctrl_stat
 $FSET $ctrl device $dev
 $FSET $ctrl verb $verb
 $FSET $ctrl sim no

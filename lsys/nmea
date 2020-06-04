@@ -63,10 +63,11 @@ $FSET $nmea data_out $ch_nmea_data
 # only used in simulation mode (nmea sentences are from other filters emulating devices)
 if [ -n "$ch_nmea_to_dev" ] && [ -n "$ch_nmea_from_dev" ]; then
     $FSET $nmea src CHAN
+    $FSET $nmea fnmea $dev
     $FSET $nmea to_dev $ch_nmea_to_dev from_dev $ch_nmea_from_dev
 else
-    $FSET $nmea src COM    
+    $FSET $nmea src COM
+    $FSET $nmea fnmea $dev
     $FSET $nmea nmea_in $ch_nmea_in nmea_out $ch_nmea_out
 fi
-$FSET $nmea fnmea $dev
 $RUN $nmea

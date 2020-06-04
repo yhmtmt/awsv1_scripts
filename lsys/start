@@ -18,10 +18,6 @@ do
     if [[ $arg =~ ^[A-Za-z0-9_]*=[A-Za-z0-9_]*$ ]]; then
 	param=(${arg//=/ })
 	case ${param[0]} in
-	    "ctrl") ctrl=${param[1]};;      # name of ctrl filter
-	    "ch_ctrl_ui") ch_ctrl_ui=${param[1]};;    # state of my own ship
-	    "ch_ctrl_ap") ch_ctrl_ap=${param[1]};; # state of controler
-	    "ch_ctrl_stat") ch_ctrl_stat=${param[1]};;# instruction to autopilot
 	    "gff") gff=${param[1]};;
 	    "ais") ais=${param[1]};;
 	    "gps") gps=${param[1]};;
@@ -39,13 +35,17 @@ caws clock run
 $CHANNEL state $ch_state
 $CHANNEL ctrl_data $ch_ctrl_ctrl_to_ap
 $CHANNEL ctrl_data $ch_ctrl_ap_to_ctrl
-$CHANNEL nmea_data $ch_nmea_data
+$CHANNEL nmea_data $ch_nmea_data_all
 
+echo "Setting up controller"
 ./ctrl ctrl=ctrl ch_ctrl_in=$ch_ctrl_ap_to_ctrl ch_ctrl_out=$ch_ctrl_ctrl_to_ap verb=$dbg_ctrl
 
-./nmea_devices gff=$gff ais=$ais v104=$v104 wx220=$wx220 ch_nmea_data=$ch_nmea_data verb=$dbg_sw #future version
+echo "Setting up NMEA devices"
+./nmea_devices gff=$gff ais=$ais v104=$v104 wx220=$wx220 ch_nmea_data=$ch_nmea_data_all verb=$dbg_sw #future version
 
+echo "Setting up data sharing manager"
 ./share share=share -i $schl2h -o $schh2l verb=$dbg_share svr=y
 
+echo "Setting up time synchronizer"
 ./sync
 
