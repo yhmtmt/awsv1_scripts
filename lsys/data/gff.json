@@ -1,11 +1,6 @@
 {
-    "sentence_id": [
-	"DBT"
-    ],
-    "psat_sentence_id": [
-    ],
-    "vdm_message_id": [
-    },
-    "vdo_message_id": [	
-    ]
+    "sentence_id": ["DBT"],
+    "psat_sentence_id": [],
+    "vdm_message_id": [],
+    "vdo_message_id": []
 }

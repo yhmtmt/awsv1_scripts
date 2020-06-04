@@ -1,11 +1,6 @@
 {
-    "sentence_id": [
-    ],
-    "psat_sentence_id": [
-    ],
-    "vdm_message_id": [
-	1, 2, 3, 5, 18, 19, 24
-    },
-    "vdo_message_id": [	
-    ]
+    "sentence_id": [],
+    "psat_sentence_id": [],
+    "vdm_message_id": [1, 2, 3, 5, 18, 19, 24],
+    "vdo_message_id": []
 }

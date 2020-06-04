@@ -57,7 +57,6 @@ if [ -z "$ch_nmea_data" ]; then
 fi
 
 $FILTER nmea0183_device $nmea
-$FSET $nmea fnmea $dev
 $FSET $nmea bps $br
 $FSET $nmea verb $verb
 $FSET $nmea data_out $ch_nmea_data
@@ -69,5 +68,5 @@ else
     $FSET $nmea src COM    
     $FSET $nmea nmea_in $ch_nmea_in nmea_out $ch_nmea_out
 fi
-
+$FSET $nmea fnmea $dev
 $RUN $nmea

@@ -24,11 +24,6 @@ do
     fi        
 done
 
-if [ -z $sw ]; then
-    echo "nmea_devices sw=<name> gff=<y or n> ais=<y or n> ap=<y or n> gps=<y or n> go=<y or n> verb=<y or n>"
-    exit
-fi
-
 if [ $gff = y ]; then
     $CHANNEL nmea gff_nmea_out
 
