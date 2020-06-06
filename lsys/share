@@ -1,11 +1,13 @@
 #!/bin/bash
 
 verb=n
+test=n
 go=n
 svr=n
-data_sharing_manager=data_sharing_manager
+data_sharing_manager=share
 
 mode=normal
+
 
 for arg in $*
 do
@@ -17,7 +19,8 @@ do
 	    "svr")svr=${param[1]};;
 	    "in")in=${param[1]};;
 	    "out")out=${param[2]};;
-	    "verb") verb=${param[1]};;
+	    "verb")verb=${param[1]};;
+	    "test")test=${param[1]};;
 	    "go") go=${param[1]};;
 	esac
 	mode=normal
@@ -39,7 +42,15 @@ done
 . ../config
 . ../config_share
 
+
 $FILTER data_sharing_manager $data_sharing_manager
+if [ $test = "y" ]; then
+    $CHANNEL ctrl_data test_in
+    $CHANNEL ctrl_data test_out
+    ich=test_in
+    och=test_out
+fi
+
 $FILTER_IN $data_sharing_manager $ich
 $FILTER_OUT $data_sharing_manager $och
 if [ $svr = "y" ]; then
@@ -49,6 +60,10 @@ else
     $FSET $data_sharing_manager host_dst $ip_svr port_dst $port_svr
 fi
 
-$FSET $data_sharing_manager verb $verb 
+$FSET $data_sharing_manager verb $verb test $test
 
 $RUN $data_sharing_manager
+
+if [ $go = "y" ]; then
+    caws clock run
+fi
