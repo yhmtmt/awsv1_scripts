@@ -5,7 +5,7 @@ dbg_ap=n
 dbg_n2k=n
 dbg_obj=n
 dbg_sync=n
-dbg_share=y
+dbg_share=n
 dbg_wp=n
 dbg_sim=n
 
@@ -21,13 +21,23 @@ do
 	param=(${arg//=/ })
 	case ${param[0]} in
 	    "sim") sim=${param[1]};;
-	    "dbg_n2k") dbg_n2k=${param[1]};;
+	    "dbg") dbg=${param[1]};;
 	    "replay") replay=${param[1]};;
 	    "tstart") tstart=${param[1]};;
 	esac
     fi    
 done
 
+case ${dbg} in
+    "ui")dbg_ui=y;;
+    "ap")dbg_ap=y;;
+    "n2k")dbg_n2k=y;;
+    "obj")dbg_obj=y;;
+    "sync")dbg_sync=y;;
+    "share")dbg_share=y;;
+    "wp")dbg_wp=y;;
+    "sim")dbg_sim=y;;
+esac
 
 $CHANNEL nmea_data $ch_nmea_data_all
 $CHANNEL nmea_data $ch_nmea_data_ais
