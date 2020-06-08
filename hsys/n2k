@@ -29,7 +29,7 @@ done
 
 if [ -z "$ch_n2k_data" ]; then
     ch_n2k_data=n2k_data
-    $CHANNEL n2k_data $n2k_data
+    $CHANNEL n2k_data $ch_n2k_data
 fi
 
 $FILTER n2k_ngt1 $n2k_ngt1
@@ -39,3 +39,7 @@ $FSET $n2k_ngt1 verb $verb
 $FSET $n2k_ngt1 ShowTxt $ShowTxt ShowJson $ShowJson
 
 $RUN $n2k_ngt1
+
+if [ $go = "y" ]; then
+    caws clock run
+fi
