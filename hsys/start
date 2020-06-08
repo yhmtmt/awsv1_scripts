@@ -5,6 +5,7 @@ dbg_ap=n
 dbg_n2k=n
 dbg_obj=n
 dbg_sync=n
+dbg_share=y
 dbg_wp=n
 dbg_sim=n
 

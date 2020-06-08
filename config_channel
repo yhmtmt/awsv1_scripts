@@ -32,3 +32,4 @@ ch_time_sync=time_sync
 
 schh2l="$ch_ctrl_ap_to_ctrl"
 schl2h="$ch_nmea_data_all $ch_ctrl_ctrl_to_ap"
+#schl2h="$ch_ctrl_ctrl_to_ap"

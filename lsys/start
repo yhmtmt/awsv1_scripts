@@ -8,8 +8,9 @@ gps=n
 v104=y
 wx220=y
 
+dbg=null
 dbg_ctrl=n
-dbg_sw=n
+dbg_nmea=n
 dbg_sync=n
 dbg_share=n
 
@@ -21,11 +22,18 @@ do
 	    "gff") gff=${param[1]};;
 	    "ais") ais=${param[1]};;
 	    "gps") gps=${param[1]};;
-	    "verb") verb=${param[1]};;
+	    "dbg") dbg=${param[1]};;			 
 	    "go") go=${param[1]};;
 	esac
     fi    
 done
+
+case ${dbg} in
+    "ctrl")dbg_ctrl=y;;
+    "nmea")dbg_nmew=y;;
+    "sync")dbg_sync=y;;
+    "share")dbg_share=y;;
+esac
 
 . ../config
 . ../config_channel
@@ -41,7 +49,7 @@ echo "Setting up controller"
 ./ctrl ctrl=ctrl ch_ctrl_in=$ch_ctrl_ap_to_ctrl ch_ctrl_out=$ch_ctrl_ctrl_to_ap verb=$dbg_ctrl
 
 echo "Setting up NMEA devices"
-./nmea_devices gff=$gff ais=$ais v104=$v104 wx220=$wx220 ch_nmea_data=$ch_nmea_data_all verb=$dbg_sw #future version
+./nmea_devices gff=$gff ais=$ais v104=$v104 wx220=$wx220 ch_nmea_data=$ch_nmea_data_all verb=$dbg_nmea #future version
 
 echo "Setting up data sharing manager"
 ./share share=share -i $schl2h -o $schh2l verb=$dbg_share svr=y
