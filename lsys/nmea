@@ -71,3 +71,7 @@ else
     $FSET $nmea nmea_in $ch_nmea_in nmea_out $ch_nmea_out
 fi
 $RUN $nmea
+
+if [ $go = "y" ]; then
+    caws clock run
+fi
