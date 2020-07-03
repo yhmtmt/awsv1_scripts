@@ -65,24 +65,32 @@ fi
 
 replay_sync=n
 replay_nmea=n
+replay_radar=n
 log_nmea=y
 log_ctrl=y
+log_radar=y
 if [ $replay = "nmea" ]; then
     echo "Replay NMEA data at state filter."
     replay_nmea=y
     replay_sync=y
+    replay_radar=y
     log_nmea=n
     log_ctrl=n
+    log_radar=n
 fi
 
 replay_ui=n
 if [ $replay = "ui" ]; then
     echo "Replay Control data at ui filter."
     replay_ui=y
+    replay_radar=y
+    replay_sync=y
     log_nmea=n
     log_ctrl=n
+    log_radar=n
 fi
 
+  
 if [ $sim = "y" ] || [ $replay = "ui" ]; then
     ch_nmea_state_to_dev=nmea_state_to_dev
     ch_nmea_state_from_dev=nmea_state_from_dev
@@ -96,12 +104,8 @@ if [ $sim = "y" ] || [ $replay = "ui" ]; then
 
     echo "Setting up virtual V104"
     ../lsys/nmea nmea=v104 ch_nmea_to_dev=$ch_nmea_state_to_dev ch_nmea_from_dev=$ch_nmea_state_from_dev ch_nmea_data=$ch_nmea_data_all
-    
-else
-    $CHANNEL radar_state $radar_state
-    $CHANNEL radar_image $radar_image
-    $CHANNEL radar_ctrl $radar_ctrl
-    
+elif [ $replay = "n" ]; then
+   
     echo "Setting up SYNC"
     ./sync ch_time_sync=$ch_time_sync replay=$replay_sync
     
@@ -109,14 +113,22 @@ else
     echo "Setting up N2K"
     ./n2k ch_n2k_data=$ch_n2k_data verb=$dbg_n2k
 
-    # radar
-    echo "Setting up Radar"
-    ./radar radar="radar" state=$ch_state radar_state=$radar_state radar_image=$radar_image radar_ctrl=$radar_ctrl
 
     # channel sharing
     echo "Settng up CHS"
     ./share data_sharing_manager=share -i $schh2l -o $schl2h verb=$dbg_share svr=n   
 fi
+
+if [ $sim = "n" ]; then
+    $CHANNEL radar_state $radar_state
+    $CHANNEL radar_image $radar_image
+    $CHANNEL radar_ctrl $radar_ctrl
+    # radar
+    echo "Setting up Radar"
+    ./radar radar="radar" state=$ch_state radar_state=$radar_state radar_image=$radar_image radar_ctrl=$radar_ctrl replay=$replay_radar log=$log_radar
+    
+fi
+
 
 echo "Setting up STATE"
 ./state ch_state=$ch_state ch_engstate=$ch_engstate ch_nmea_data_in=$ch_nmea_data_all ch_nmea_data_out=$ch_nmea_data_ais ch_n2k_data_in=$ch_n2k_data ch_time_sync=$ch_time_sync log_nmea=$log_nmea replay=$replay_nmea

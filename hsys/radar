@@ -18,6 +18,8 @@ do
             "radar_state")radar_state=${param[1]};;
             "radar_image")radar_image=${param[1]};;
 	    "radar_ctrl")radar_ctrl=${param[1]};;
+	    "replay")replay=${param[1]};;
+	    "log")log=${param[1]};;
             "verb") verb=${param[1]};;
             "go") go=${param[1]};;
         esac
@@ -51,6 +53,6 @@ $FSET $radar_gxhd state $state
 $FSET $radar_gxhd radar_state $radar_state
 $FSET $radar_gxhd radar_image $radar_image
 $FSET $radar_gxhd radar_ctrl $radar_ctrl
-
+$FSET $radar_gxhd replay $replay log $log
 $RUN $radar_gxhd
 
